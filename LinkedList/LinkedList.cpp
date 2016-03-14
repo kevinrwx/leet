@@ -1134,6 +1134,379 @@
 
 
 //Sort List
+// #include <iostream>
+
+// using namespace std;
+
+// struct ListNode {
+// 	int val;
+// 	ListNode* next;
+// 	ListNode(int x) : val(x), next(NULL) {}
+// };
+
+// void printList(ListNode* head) {
+// 	if(head == NULL)
+// 		cout<<"empty list";
+// 	ListNode* pNode = head;
+// 	while(pNode != NULL) {
+// 		cout<<pNode->val<<" ";
+// 		pNode = pNode->next;
+// 	}
+// 	cout<<endl;
+// }
+
+// void mergeList(ListNode* head1, ListNode* head2) {
+// 	ListNode* dummy = new ListNode(-1);
+// 	ListNode* pNode = dummy;
+// 	ListNode* pNode1 = head1;
+// 	ListNode* pNode2 = head2;
+// 	while(pNode1 != NULL && pNode2 != NULL) {
+// 		ListNode* tmp;
+// 		if(pNode1->val <= pNode2->val) {
+// 			tmp = pNode1;
+// 			pNode1 = pNode1->next;
+// 			tmp->next = pNode->next;
+// 			pNode->next = tmp;
+// 			pNode = pNode->next;
+// 		} else {
+// 			tmp = pNode2;
+// 			pNode2 = pNode2->next;
+// 			tmp->next = pNode->next;
+// 			pNode->next = tmp;
+// 			pNode = pNode->next;
+// 		}
+// 	}
+// 	if(pNode1 != NULL)
+// 		pNode->next = pNode1;
+// 	if(pNode2 != NULL)
+// 		pNode->next = pNode2;
+// 	// return dummy->next;
+// }
+
+// void mergeSortList(ListNode* head) {
+// 	if(head == NULL || head->next == NULL)
+// 		return head;
+// 	ListNode* pSlow = head;
+// 	ListNode* pFast = head;
+// 	while(pFast != NULL && pFast->next != NULL) {
+// 		pSlow = pSlow->next;
+// 		pFast = pFast->next->next;
+// 	}
+// 	ListNode* tmp = pSlow->next;
+// 	pSlow->next = NULL;
+// 	ListNode* head1 = mergeSortList(head);
+// 	ListNode* head2 = mergeSortList(tmp);
+// 	mergeList(head1, head2);
+// }
+
+// ListNode* sortList(ListNode* head) {
+// 	if(head == NULL || head->next == NULL)
+// 		return head;
+// 	return head;
+// }
+
+// int main() {
+// 	ListNode* l = new ListNode(1);
+// 	l->next = new ListNode(3);
+// 	l->next->next = new ListNode(2);
+// 	l->next->next->next = new ListNode(5);
+// 	l->next->next->next->next = new ListNode(4);
+// 	// ListNode* result = insertionSortList(l);
+// 	// printList(result);
+// 	ListNode* result = sortList(l);
+// 	printList(result);
+// 	return 0;
+// }
+
+//Intersection of Two Linked Lists
+// #include <iostream>
+
+// using namespace std;
+
+// struct ListNode {
+// 	int val;
+// 	ListNode* next;
+// 	ListNode(int x) : val(x), next(NULL) {}
+// };
+
+// void printList(ListNode* head) {
+// 	if(head == NULL)
+// 		cout<<"empty list";
+// 	ListNode* pNode = head;
+// 	while(pNode != NULL) {
+// 		cout<<pNode->val<<" ";
+// 		pNode = pNode->next;
+// 	}
+// 	cout<<endl;
+// }
+
+// ListNode* getIntersectionNode(ListNode* headA, ListNode* headB) {
+// 	if(headA == NULL || headB == NULL)
+// 		return NULL;
+// 	ListNode* pNodeA = headA;
+// 	ListNode* pNodeB = headB;
+// 	int countA = 0;
+// 	int countB = 0;
+// 	while(pNodeA != NULL) {
+// 		pNodeA = pNodeA->next;
+// 		countA++;
+// 	}
+// 	while(pNodeB != NULL) {
+// 		pNodeB = pNodeB->next;
+// 		countB++;
+// 	}
+// 	ListNode* pNode = (countA > countB) ? headA : headB;
+// 	ListNode* qNode = (countA > countB) ? headB : headA;
+// 	int count = (countA > countB) ? (countA - countB) : (countB - countA);
+// 	while(count-- > 0)
+// 		pNode = pNode->next;
+// 	while(pNode != qNode) {
+// 		pNode = pNode->next;
+// 		qNode = qNode->next;
+// 	}
+// 	return pNode;
+// }
+
+// int main() {
+// 	ListNode* l = new ListNode(1);
+// 	l->next = new ListNode(3);
+// 	l->next->next = new ListNode(2);
+// 	l->next->next->next = new ListNode(5);
+// 	l->next->next->next->next = new ListNode(4);
+// 	ListNode* k = new ListNode(-1);
+// 	k->next = new ListNode(-2);
+// 	k->next->next = l->next->next->next->next;
+// 	ListNode* result = getIntersectionNode(l, k);
+// 	cout<<result->val<<endl;
+// 	return 0;
+// }
+
+//Remove Linked List Elements
+// #include <iostream>
+
+// using namespace std;
+
+// struct ListNode {
+// 	int val;
+// 	ListNode* next;
+// 	ListNode(int x) : val(x), next(NULL) {}
+// };
+
+// void printList(ListNode* head) {
+// 	if(head == NULL)
+// 		cout<<"empty list";
+// 	ListNode* pNode = head;
+// 	while(pNode != NULL) {
+// 		cout<<pNode->val<<" ";
+// 		pNode = pNode->next;
+// 	}
+// 	cout<<endl;
+// }
+
+// ListNode* removeElements(ListNode* head, int val) {
+// 	if(head == NULL)
+// 		return NULL;
+// 	ListNode* dummy = new ListNode(-1);
+// 	dummy->next = head;
+// 	ListNode* pNode = dummy;
+// 	while(pNode->next != NULL) {
+// 		if(pNode->next->val == val)
+// 			pNode->next = pNode->next->next;
+// 		else
+// 			pNode = pNode->next;
+// 	}
+// 	return dummy->next;
+// }
+
+// int main() {
+// 	ListNode* l = new ListNode(1);
+// 	l->next = new ListNode(3);
+// 	l->next->next = new ListNode(2);
+// 	l->next->next->next = new ListNode(5);
+// 	l->next->next->next->next = new ListNode(4);
+// 	int val = 4;
+// 	ListNode* result = removeElements(l, val);
+// 	printList(result);
+// 	return 0;
+// }
+
+//Reverse Linked List
+// #include <iostream>
+
+// using namespace std;
+
+// struct ListNode {
+// 	int val;
+// 	ListNode* next;
+// 	ListNode(int x) : val(x), next(NULL) {}
+// };
+
+// void printList(ListNode* head) {
+// 	if(head == NULL)
+// 		cout<<"empty list";
+// 	ListNode* pNode = head;
+// 	while(pNode != NULL) {
+// 		cout<<pNode->val<<" ";
+// 		pNode = pNode->next;
+// 	}
+// 	cout<<endl;
+// }
+
+// //iterative way
+// ListNode* reverseList(ListNode* head) {
+// 	if(head == NULL || head->next == NULL)
+// 		return head;
+// 	ListNode* dummy = new ListNode(-1);
+// 	ListNode* pNode = head;
+// 	while(pNode != NULL) {
+// 		ListNode* tmp = pNode;
+// 		pNode = pNode->next;
+// 		tmp->next = dummy->next;
+// 		dummy->next = tmp;
+// 	}
+// 	return dummy->next;
+// }
+
+// //recursive way
+// ListNode* reverseList(ListNode* head) {
+// 	if(head == NULL || head->next == NULL)
+// 		return head;
+// 	ListNode* pNode = head->next;
+// 	head->next = NULL;
+// 	ListNode* qNode = reverseList(pNode);
+// 	pNode->next = head;
+// 	return qNode;
+// }
+
+// int main() {
+// 	ListNode* l = new ListNode(1);
+// 	l->next = new ListNode(3);
+// 	l->next->next = new ListNode(2);
+// 	l->next->next->next = new ListNode(5);
+// 	l->next->next->next->next = new ListNode(4);
+// 	ListNode* result = reverseList(l);
+// 	printList(result);
+// 	return 0;
+// }
+
+//Palindrome Linked List
+// #include <iostream>
+
+// using namespace std;
+
+// struct ListNode {
+// 	int val;
+// 	ListNode* next;
+// 	ListNode(int x) : val(x), next(NULL) {}
+// };
+
+// void printList(ListNode* head) {
+// 	if(head == NULL)
+// 		cout<<"empty list";
+// 	ListNode* pNode = head;
+// 	while(pNode != NULL) {
+// 		cout<<pNode->val<<" ";
+// 		pNode = pNode->next;
+// 	}
+// 	cout<<endl;
+// }
+
+// ListNode* reverseList(ListNode* head) {
+// 	if(head == NULL || head->next == NULL)
+// 		return head;
+// 	ListNode* dummy = new ListNode(-1);
+// 	ListNode* pNode = head;
+// 	while(pNode != NULL) {
+// 		ListNode* tmp = pNode;
+// 		pNode = pNode->next;
+// 		tmp->next = dummy->next;
+// 		dummy->next = tmp;
+// 	}
+// 	return dummy->next;
+// }
+
+// bool isPalindrome(ListNode* head) {
+// 	if(head == NULL || head->next == NULL)
+// 		return true;
+// 	ListNode* pSlow = head;
+// 	ListNode* pFast = head;
+// 	while(pFast->next != NULL && pFast->next->next != NULL) {
+// 		pSlow = pSlow->next;
+// 		pFast = pFast->next->next;
+// 	}
+// 	cout<<pSlow->val<<endl;
+// 	ListNode* pNode = head;
+// 	ListNode* qNode = reverseList(pSlow->next);
+// 	pSlow->next = NULL;
+// 	bool flag = true;
+// 	while(pNode != NULL && qNode != NULL) {
+// 		if(pNode->val != qNode->val) {
+// 			flag = false;
+// 			break;
+// 		}
+// 		pNode = pNode->next;
+// 		qNode = qNode->next;
+// 	}
+// 	return flag;
+// }
+
+
+// int main() {
+// 	ListNode* l = new ListNode(1);
+// 	l->next = new ListNode(3);
+// 	l->next->next = new ListNode(3);
+// 	l->next->next->next = new ListNode(3);
+// 	l->next->next->next->next = new ListNode(2);
+// 	if(isPalindrome(l))
+// 		cout<<"Palindrome"<<endl;
+// 	else
+// 		cout<<"not palindrome"<<endl;
+// 	return 0;
+// }
+
+
+//Delete Node in a Linked List
+// #include <iostream>
+
+// using namespace std;
+
+// struct ListNode {
+// 	int val;
+// 	ListNode* next;
+// 	ListNode(int x) : val(x), next(NULL) {}
+// };
+
+// void printList(ListNode* head) {
+// 	if(head == NULL)
+// 		cout<<"empty list";
+// 	ListNode* pNode = head;
+// 	while(pNode != NULL) {
+// 		cout<<pNode->val<<" ";
+// 		pNode = pNode->next;
+// 	}
+// 	cout<<endl;
+// }
+
+// void deleteNode(ListNode* node) {
+// 	if(node == NULL)
+// 		return ;
+// 	node->val = node->next->val;
+// 	node->next = node->next->next;
+// }
+
+// int main() {
+// 	ListNode* l = new ListNode(1);
+// 	l->next = new ListNode(3);
+// 	l->next->next = new ListNode(5);
+// 	l->next->next->next = new ListNode(3);
+// 	l->next->next->next->next = new ListNode(2);
+// 	printList(l);
+// 	deleteNode(l->next->next);
+// 	printList(l);
+// 	return 0;
+// }
+
+//Odd Even Linked List
 #include <iostream>
 
 using namespace std;
@@ -1155,54 +1528,41 @@ void printList(ListNode* head) {
 	cout<<endl;
 }
 
-void mergeList(ListNode* head1, ListNode* head2) {
-	ListNode* dummy = new ListNode(-1);
-	ListNode* pNode = dummy;
-	ListNode* pNode1 = head1;
-	ListNode* pNode2 = head2;
-	while(pNode1 != NULL && pNode2 != NULL) {
-		ListNode* tmp;
-		if(pNode1->val <= pNode2->val) {
-			tmp = pNode1;
-			pNode1 = pNode1->next;
-			tmp->next = pNode->next;
-			pNode->next = tmp;
-			pNode = pNode->next;
+ListNode* oddEvenList(ListNode* head) {
+	if(head == NULL || head->next == NULL)
+		return head;
+	bool flag;
+	if(head->val % 2 == 0)
+		flag = true;
+	else
+		flag = false;
+	ListNode* dummyOdd = new ListNode(-1);
+	ListNode* dummyEven = new ListNode(-1);
+	ListNode* oNode = dummyOdd;
+	ListNode* eNode = dummyEven;
+	ListNode* pNode = head;
+	while(pNode != NULL) {
+		ListNode* tmp = pNode;
+		pNode = pNode->next;
+		tmp->next = NULL;
+		if(tmp->val % 2 != 0) {
+			oNode->next = tmp;
+			oNode = oNode->next;
 		} else {
-			tmp = pNode2;
-			pNode2 = pNode2->next;
-			tmp->next = pNode->next;
-			pNode->next = tmp;
-			pNode = pNode->next;
+			eNode->next = tmp;
+			eNode = eNode->next;
 		}
 	}
-	if(pNode1 != NULL)
-		pNode->next = pNode1;
-	if(pNode2 != NULL)
-		pNode->next = pNode2;
-	// return dummy->next;
-}
-
-void mergeSortList(ListNode* head) {
-	if(head == NULL || head->next == NULL)
-		return head;
-	ListNode* pSlow = head;
-	ListNode* pFast = head;
-	while(pFast != NULL && pFast->next != NULL) {
-		pSlow = pSlow->next;
-		pFast = pFast->next->next;
+	ListNode* fNode;
+	ListNode* sNode;
+	if(flag) {
+		fNode = dummyEven->next;
+		sNode = dummyOdd->next;
+	} else {
+		fNode = dummyOdd->next;
+		sNode = dummyEven->next;
 	}
-	ListNode* tmp = pSlow->next;
-	pSlow->next = NULL;
-	ListNode* head1 = mergeSortList(head);
-	ListNode* head2 = mergeSortList(tmp);
-	mergeList(head1, head2);
-}
-
-ListNode* sortList(ListNode* head) {
-	if(head == NULL || head->next == NULL)
-		return head;
-	return head;
+	return dummyEven->next;
 }
 
 int main() {
@@ -1211,12 +1571,13 @@ int main() {
 	l->next->next = new ListNode(2);
 	l->next->next->next = new ListNode(5);
 	l->next->next->next->next = new ListNode(4);
-	// ListNode* result = insertionSortList(l);
-	// printList(result);
-	ListNode* result = sortList(l);
+	printList(l);
+	ListNode* result = oddEvenList(l);
 	printList(result);
 	return 0;
 }
+
+
 
 
 
