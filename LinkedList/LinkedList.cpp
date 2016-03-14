@@ -891,6 +891,249 @@
 
 
 //Linked List Cycle II
+// #include <iostream>
+
+// using namespace std;
+
+// struct ListNode {
+// 	int val;
+// 	ListNode* next;
+// 	ListNode(int x) : val(x), next(NULL) {}
+// };
+
+// bool hasCycle(ListNode* head) {
+// 	if(head == NULL || head->next == NULL)
+// 		return false;
+// 	ListNode* pSlow = head;
+// 	ListNode* pFast = head;
+// 	while(pFast != NULL && pFast->next != NULL) {
+// 		pSlow = pSlow->next;
+// 		pFast = pFast->next->next;
+// 		if(pSlow == pFast) {
+// 			return true;
+// 		}
+// 	}
+// 	return false;
+// }
+
+// ListNode* detectCycle(ListNode* head) {
+// 	if(head == NULL || head->next == NULL)
+// 		return NULL;
+// 	ListNode* pSlow = head;
+// 	ListNode* pFast = head;
+// 	bool flag = false;
+// 	ListNode* result = NULL;
+// 	while(pFast != NULL && pFast->next != NULL) {
+// 		pSlow = pSlow->next;
+// 		pFast = pFast->next->next;
+// 		if(pSlow == pFast) {
+// 			flag = true;
+// 			break;
+// 		}
+// 	}
+// 	//判断环起点的代码需要注意
+// 	if(flag) {
+// 		ListNode* pNode1 = head;
+// 		int count1 = 0;
+// 		while(pNode1 != pFast) {
+// 			pNode1 = pNode1->next;
+// 			count1++;
+// 		}
+// 		ListNode* pNode2 = pFast->next;
+// 		int count2 = 0;
+// 		while(pNode2 != pFast) {
+// 			pNode2 = pNode2->next;
+// 			count2++;
+// 		}
+// 		ListNode* pNode = (count1 > count2) ? head : pFast->next;
+// 		ListNode* qNode = (count1 > count2) ? pFast->next : head;
+// 		int count = (count1 > count2) ? (count1 - count2) : (count2 - count1);
+// 		while(count > 0) {
+// 			pNode = pNode->next;
+// 			count--;
+// 		}
+// 		while(pNode != qNode) {
+// 			pNode = pNode->next;
+// 			qNode = qNode->next;
+// 		}
+// 		result = pNode;
+// 	}
+// 	return result;
+// }
+
+// void printList(ListNode* head) {
+// 	if(head == NULL)
+// 		cout<<"empty list";
+// 	ListNode* pNode = head;
+// 	while(pNode != NULL) {
+// 		cout<<pNode->val<<" ";
+// 		pNode = pNode->next;
+// 	}
+// 	cout<<endl;
+// }
+
+// int main() {
+// 	ListNode* l = new ListNode(1);
+// 	l->next = new ListNode(2);
+// 	l->next->next = new ListNode(3);
+// 	l->next->next->next = new ListNode(4);
+// 	l->next->next->next->next = new ListNode(5);
+// 	l->next->next->next->next->next = l->next;
+// 	ListNode* result = detectCycle(l);
+// 	cout<<result->val<<endl;
+// 	return 0;
+// }
+
+//Reorder List
+// #include <iostream>
+
+// using namespace std;
+
+// struct ListNode {
+// 	int val;
+// 	ListNode* next;
+// 	ListNode(int x) : val(x), next(NULL) {}
+// };
+
+// void printList(ListNode* head) {
+// 	if(head == NULL)
+// 		cout<<"empty list";
+// 	ListNode* pNode = head;
+// 	while(pNode != NULL) {
+// 		cout<<pNode->val<<" ";
+// 		pNode = pNode->next;
+// 	}
+// 	cout<<endl;
+// }
+
+// ListNode* reverse(ListNode* head) {
+// 	if(head == NULL || head->next ==NULL)
+// 		return head;
+// 	ListNode* dummy = new ListNode(-1);
+// 	ListNode* pNode = head;
+// 	while(pNode != NULL) {
+// 		ListNode* tmp = pNode;
+// 		pNode = pNode->next;
+// 		tmp->next = dummy->next;
+// 		dummy->next = tmp;
+// 	}
+// 	return dummy->next;
+// }
+
+// //思路比较简单，就是先用快慢指针将链表分为前后两段，然后将后一段链表翻转，最后再将链表拼接
+// void reorderList(ListNode* head) {
+// 	if(head == NULL || head->next == NULL)
+// 		return ;
+// 	ListNode* pSlow = head;
+// 	ListNode* pFast = head;
+// 	while(pFast != NULL && pFast->next != NULL) {
+// 		pSlow = pSlow->next;
+// 		pFast = pFast->next->next;
+// 	}
+// 	ListNode* dummy = new ListNode(-1);
+// 	ListNode* dummy1 = new ListNode(-1);
+// 	ListNode* dummy2 = new ListNode(-1);
+// 	dummy1->next = head;
+// 	//翻转后半部分链表
+// 	dummy2->next = reverse(pSlow->next);
+// 	pSlow->next = NULL;
+// 	ListNode* pNode = dummy;
+// 	ListNode* pNode1 = dummy1->next;
+// 	ListNode* pNode2 = dummy2->next;
+// 	while(pNode1 != NULL && pNode2 != NULL) {
+// 		ListNode* tmp = pNode1;
+// 		pNode1 = pNode1->next;
+// 		tmp->next = NULL;
+// 		pNode->next = tmp;
+// 		pNode = pNode->next;
+
+// 		tmp = pNode2;
+// 		pNode2 = pNode2->next;
+// 		tmp->next = NULL;
+// 		pNode->next = tmp;
+// 		pNode = pNode->next;
+// 	}
+// 	if(pNode1 != NULL)
+// 		pNode->next = pNode1;
+// }
+
+// int main() {
+// 	ListNode* l = new ListNode(1);
+// 	l->next = new ListNode(2);
+// 	l->next->next = new ListNode(3);
+// 	l->next->next->next = new ListNode(4);
+// 	l->next->next->next->next = new ListNode(5);
+// 	reorderList(l);
+// 	printList(l);
+// 	return 0;
+// }
+
+
+//Insertion Sort List
+// #include <iostream>
+
+// using namespace std;
+
+// struct ListNode {
+// 	int val;
+// 	ListNode* next;
+// 	ListNode(int x) : val(x), next(NULL) {}
+// };
+
+// void printList(ListNode* head) {
+// 	if(head == NULL)
+// 		cout<<"empty list";
+// 	ListNode* pNode = head;
+// 	while(pNode != NULL) {
+// 		cout<<pNode->val<<" ";
+// 		pNode = pNode->next;
+// 	}
+// 	cout<<endl;
+// }
+
+// void insert(ListNode* head, ListNode* node) {
+// 	if(head->next == NULL) {
+// 		head->next = node;
+// 		return ;
+// 	} else {
+// 		ListNode* pNode = head;
+// 		while(pNode->next != NULL && pNode->next->val < node->val)
+// 			pNode = pNode->next;
+// 		node->next = pNode->next;
+// 		pNode->next = node;
+// 	}
+// }
+
+// //思路比较明确，但是要注意里面的细节问题，比如在链表中插入节点时
+// ListNode* insertionSortList(ListNode* head) {
+// 	if(head == NULL || head->next == NULL)
+// 		return head;
+// 	ListNode* dummy = new ListNode(-1);
+// 	ListNode* pNode = head;
+// 	while(pNode != NULL) {
+// 		ListNode* tmp = pNode;
+// 		pNode = pNode->next;
+// 		//要设定tmp的next为NULL
+// 		tmp->next = NULL;
+// 		insert(dummy, tmp);
+// 	}
+// 	return dummy->next;
+// }
+
+// int main() {
+// 	ListNode* l = new ListNode(1);
+// 	l->next = new ListNode(1);
+// 	// l->next->next = new ListNode(2);
+// 	// l->next->next->next = new ListNode(5);
+// 	// l->next->next->next->next = new ListNode(4);
+// 	printList(l);
+// 	ListNode* result = insertionSortList(l);
+// 	// printList(result);
+// 	return 0;
+// }
+
+
+//Sort List
 #include <iostream>
 
 using namespace std;
@@ -900,40 +1143,6 @@ struct ListNode {
 	ListNode* next;
 	ListNode(int x) : val(x), next(NULL) {}
 };
-
-bool hasCycle(ListNode* head) {
-	if(head == NULL || head->next == NULL)
-		return false;
-	ListNode* pSlow = head;
-	ListNode* pFast = head;
-	while(pFast != NULL && pFast->next != NULL) {
-		pSlow = pSlow->next;
-		pFast = pFast->next->next;
-		if(pSlow == pFast) {
-			return true;
-		}
-	}
-	return false;
-}
-
-ListNode* detectCycle(ListNode* head) {
-	if(head == NULL || head->next == NULL)
-		return NULL;
-	ListNode* pSlow = head;
-	ListNode* pFast = head;
-	bool flag = false;
-	while(pFast != NULL && pFast->next != NULL) {
-		pSlow = pSlow->next;
-		pFast = pFast->next->next;
-		if(pSlow == pFast) {
-			flag = true;
-			break;
-		}
-	}
-	if(flag) {
-		//
-	}
-}
 
 void printList(ListNode* head) {
 	if(head == NULL)
@@ -946,35 +1155,68 @@ void printList(ListNode* head) {
 	cout<<endl;
 }
 
-int main() {
-	ListNode* l = new ListNode(1);
-	l->next = new ListNode(2);
-	l->next->next = new ListNode(3);
-	l->next->next->next = new ListNode(4);
-	l->next->next->next->next = new ListNode(5);
-	l->next->next->next->next->next = l->next;
-	if(hasCycle(l)) {
-		cout<<"has cycle"<<endl;
-	} else {
-		cout<<"don't has cycle"<<endl;
+void mergeList(ListNode* head1, ListNode* head2) {
+	ListNode* dummy = new ListNode(-1);
+	ListNode* pNode = dummy;
+	ListNode* pNode1 = head1;
+	ListNode* pNode2 = head2;
+	while(pNode1 != NULL && pNode2 != NULL) {
+		ListNode* tmp;
+		if(pNode1->val <= pNode2->val) {
+			tmp = pNode1;
+			pNode1 = pNode1->next;
+			tmp->next = pNode->next;
+			pNode->next = tmp;
+			pNode = pNode->next;
+		} else {
+			tmp = pNode2;
+			pNode2 = pNode2->next;
+			tmp->next = pNode->next;
+			pNode->next = tmp;
+			pNode = pNode->next;
+		}
 	}
-	return 0;
+	if(pNode1 != NULL)
+		pNode->next = pNode1;
+	if(pNode2 != NULL)
+		pNode->next = pNode2;
+	// return dummy->next;
 }
 
+void mergeSortList(ListNode* head) {
+	if(head == NULL || head->next == NULL)
+		return head;
+	ListNode* pSlow = head;
+	ListNode* pFast = head;
+	while(pFast != NULL && pFast->next != NULL) {
+		pSlow = pSlow->next;
+		pFast = pFast->next->next;
+	}
+	ListNode* tmp = pSlow->next;
+	pSlow->next = NULL;
+	ListNode* head1 = mergeSortList(head);
+	ListNode* head2 = mergeSortList(tmp);
+	mergeList(head1, head2);
+}
 
+ListNode* sortList(ListNode* head) {
+	if(head == NULL || head->next == NULL)
+		return head;
+	return head;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+int main() {
+	ListNode* l = new ListNode(1);
+	l->next = new ListNode(3);
+	l->next->next = new ListNode(2);
+	l->next->next->next = new ListNode(5);
+	l->next->next->next->next = new ListNode(4);
+	// ListNode* result = insertionSortList(l);
+	// printList(result);
+	ListNode* result = sortList(l);
+	printList(result);
+	return 0;
+}
 
 
 
