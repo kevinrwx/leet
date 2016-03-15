@@ -374,36 +374,6 @@
 // 	ListNode(int x) : val(x), next(NULL) {}
 // };
 
-// ListNode* reverseKGroup(ListNode* head, int k) {
-// 	int n = 0;
-// 	ListNode* pNode = head;
-// 	while(pNode != NULL) {
-// 		n++;
-// 		pNode = pNode->next;
-// 	}
-// 	if(head == NULL || n < k)
-// 		return head;
-// 	int times = n / k;
-// 	ListNode* dummy = new ListNode(-1);
-// 	dummy->next = head;
-// 	pNode = dummy;
-// 	ListNode* dummyNew = new ListNode(-1);
-// 	ListNode* pHead = dummyNew;
-// 	while(times-- > 0) {
-// 		int count = k;
-// 		while(count-- > 0) {
-// 			ListNode* tmp = pNode->next;
-// 			pNode = pNode->next;
-// 			tmp->next = pHead->next;
-// 			pHead->next = tmp;
-// 		}
-// 		pHead = pNode;
-// 	}
-// 	// if(pNode->next != NULL)
-// 	// 	pHead->next = pNode->next;
-// 	return dummyNew->next;
-// }
-
 // void printList(ListNode* node) {
 // 	if(node == NULL)
 // 		cout<<"empty list";
@@ -414,6 +384,72 @@
 // 	}
 // 	cout<<endl;
 // }
+
+// ListNode* reverseKGroup(ListNode* head, int k) {
+// 	int n = 0;
+// 	ListNode* pNode = head;
+// 	while(pNode != NULL) {
+// 		n++;
+// 		pNode = pNode->next;
+// 	}
+// 	if(head == NULL || n < k)
+// 		return head;
+// 	int times = n / k;
+// 	cout<<times<<endl;
+// 	ListNode* dummy = new ListNode(-1);
+// 	dummy->next = head;
+// 	pNode = head;
+// 	ListNode* dummyNew = new ListNode(-1);
+// 	ListNode* pHead = dummyNew;
+// 	while(times-- > 0) {
+// 		int count = k;
+// 		while(count-- > 0) {
+// 			ListNode* tmp = pNode;
+// 			pNode = pNode->next;
+// 			tmp->next = pHead->next;
+// 			pHead->next = tmp;
+// 		}
+// 		while(pHead->next != NULL)
+// 			pHead = pHead->next;
+// 	}
+// 	while(pHead->next != NULL)
+// 		pHead = pHead->next;
+// 	if(pNode != NULL)
+// 		pHead->next = pNode;
+// 	return dummyNew->next;
+// }
+
+// //感觉更为简洁，可惜提交的时间会再高一些-_-!
+// ListNode* reverseKGroup(ListNode* head, int k) {
+// 	int n = 0;
+// 	ListNode* pNode = head;
+// 	while(pNode != NULL) {
+// 		n++;
+// 		pNode = pNode->next;
+// 	}
+// 	if(head == NULL || n < k)
+// 		return head;
+// 	int times = n / k;
+// 	pNode = head;
+// 	ListNode* dummyNew = new ListNode(-1);
+// 	ListNode* pHead = dummyNew;
+// 	ListNode* qNode;
+// 	while(times-- > 0) {
+// 		int count = k;
+// 		qNode = pNode;
+// 		while(count-- > 0) {
+// 			ListNode* tmp = pNode;
+// 			pNode = pNode->next;
+// 			tmp->next = pHead->next;
+// 			pHead->next = tmp;
+// 		}
+// 		pHead = qNode;
+// 	}
+// 	if(pNode != NULL)
+// 		pHead->next = pNode;
+// 	return dummyNew->next;
+// }
+
 
 // int main() {
 // 	ListNode* l = new ListNode(1);
@@ -818,6 +854,7 @@
 
 //copy list with random pointer
 // #include <iostream>
+// #include <map>
 
 // using namespace std;
 
@@ -828,8 +865,34 @@
 // 	RandomListNode(int x) : label(x), next(NULL), random(NULL) {}
 // };
 
+// //这道题目仍然没有想出来，还是看了答案以后才知道怎么做的刚开始做这题时，先看了题目的
+// //tag，然后知道需要用HashMap，但是具体该怎么用，还是很困惑，直到看了答案以后才知道
 // RandomListNode* copyRandomList(RandomListNode* head) {
-// 	//
+// 	if(head == NULL)
+// 		return NULL;
+// 	map<RandomListNode*, RandomListNode*> myMap;
+// 	RandomListNode* dummy = new RandomListNode(-1);
+// 	RandomListNode* pNode = head;
+// 	RandomListNode* cNode = dummy;
+// 	while(pNode != NULL) {
+// 		if(myMap.find(pNode) == myMap.end()) {
+// 			cNode->next = new RandomListNode(pNode->label);
+// 			myMap.insert(pair<RandomListNode*, RandomListNode*>(pNode, cNode->next));
+// 		} else {
+// 			cNode->next = myMap[pNode];
+// 		}
+// 		if(pNode->random != NULL) {
+// 			if(myMap.find(pNode->random) == myMap.end()) {
+// 				cNode->next->random = new RandomListNode(pNode->random->label);
+// 				myMap.insert(pair<RandomListNode*, RandomListNode*>(pNode->random, cNode->next->random));
+// 			} else {
+// 				cNode->next->random = myMap[pNode->random];
+// 			}
+// 		}
+// 		pNode = pNode->next;
+// 		cNode = cNode->next;
+// 	}
+// 	return dummy->next;
 // }
 
 // int main() {
@@ -1155,7 +1218,12 @@
 // 	cout<<endl;
 // }
 
-// void mergeList(ListNode* head1, ListNode* head2) {
+// //链表归并排序
+// ListNode* mergeList(ListNode* head1, ListNode* head2) {
+// 	if(head1 == NULL)
+// 		return head2;
+// 	if(head2 == NULL)
+// 		return head1;
 // 	ListNode* dummy = new ListNode(-1);
 // 	ListNode* pNode = dummy;
 // 	ListNode* pNode1 = head1;
@@ -1180,29 +1248,23 @@
 // 		pNode->next = pNode1;
 // 	if(pNode2 != NULL)
 // 		pNode->next = pNode2;
-// 	// return dummy->next;
-// }
-
-// void mergeSortList(ListNode* head) {
-// 	if(head == NULL || head->next == NULL)
-// 		return head;
-// 	ListNode* pSlow = head;
-// 	ListNode* pFast = head;
-// 	while(pFast != NULL && pFast->next != NULL) {
-// 		pSlow = pSlow->next;
-// 		pFast = pFast->next->next;
-// 	}
-// 	ListNode* tmp = pSlow->next;
-// 	pSlow->next = NULL;
-// 	ListNode* head1 = mergeSortList(head);
-// 	ListNode* head2 = mergeSortList(tmp);
-// 	mergeList(head1, head2);
+// 	return dummy->next;
 // }
 
 // ListNode* sortList(ListNode* head) {
 // 	if(head == NULL || head->next == NULL)
 // 		return head;
-// 	return head;
+// 	ListNode* pSlow = head;
+// 	ListNode* pFast = head;
+// 	while(pFast->next != NULL && pFast->next->next != NULL) {
+// 		pSlow = pSlow->next;
+// 		pFast = pFast->next->next;
+// 	}
+// 	ListNode* tmp = pSlow->next;
+// 	pSlow->next = NULL;
+// 	ListNode* head1 = sortList(head);
+// 	ListNode* head2 = sortList(tmp);
+// 	return mergeList(head1, head2);
 // }
 
 // int main() {
@@ -1507,83 +1569,67 @@
 // }
 
 //Odd Even Linked List
-#include <iostream>
+// #include <iostream>
 
-using namespace std;
+// using namespace std;
 
-struct ListNode {
-	int val;
-	ListNode* next;
-	ListNode(int x) : val(x), next(NULL) {}
-};
+// struct ListNode {
+// 	int val;
+// 	ListNode* next;
+// 	ListNode(int x) : val(x), next(NULL) {}
+// };
 
-void printList(ListNode* head) {
-	if(head == NULL)
-		cout<<"empty list";
-	ListNode* pNode = head;
-	while(pNode != NULL) {
-		cout<<pNode->val<<" ";
-		pNode = pNode->next;
-	}
-	cout<<endl;
-}
+// void printList(ListNode* head) {
+// 	if(head == NULL)
+// 		cout<<"empty list";
+// 	ListNode* pNode = head;
+// 	while(pNode != NULL) {
+// 		cout<<pNode->val<<" ";
+// 		pNode = pNode->next;
+// 	}
+// 	cout<<endl;
+// }
 
-ListNode* oddEvenList(ListNode* head) {
-	if(head == NULL || head->next == NULL)
-		return head;
-	bool flag;
-	if(head->val % 2 == 0)
-		flag = true;
-	else
-		flag = false;
-	ListNode* dummyOdd = new ListNode(-1);
-	ListNode* dummyEven = new ListNode(-1);
-	ListNode* oNode = dummyOdd;
-	ListNode* eNode = dummyEven;
-	ListNode* pNode = head;
-	while(pNode != NULL) {
-		ListNode* tmp = pNode;
-		pNode = pNode->next;
-		tmp->next = NULL;
-		if(tmp->val % 2 != 0) {
-			oNode->next = tmp;
-			oNode = oNode->next;
-		} else {
-			eNode->next = tmp;
-			eNode = eNode->next;
-		}
-	}
-	ListNode* fNode;
-	ListNode* sNode;
-	if(flag) {
-		fNode = dummyEven->next;
-		sNode = dummyOdd->next;
-	} else {
-		fNode = dummyOdd->next;
-		sNode = dummyEven->next;
-	}
-	return dummyEven->next;
-}
+// ListNode* oddEvenList(ListNode* head) {
+// 	if(head == NULL || head->next == NULL)
+// 		return head;
+// 	bool flag;
+// 	if(head->val % 2 == 0)
+// 		flag = true;
+// 	else
+// 		flag = false;
+// 	ListNode* dummyOdd = new ListNode(-1);
+// 	ListNode* dummyEven = new ListNode(-1);
+// 	ListNode* oNode = dummyOdd;
+// 	ListNode* eNode = dummyEven;
+// 	ListNode* pNode = head;
+// 	int count = 0;
+// 	while(pNode != NULL) {
+// 		count++;
+// 		ListNode* tmp = pNode;
+// 		pNode = pNode->next;
+// 		tmp->next = NULL;
+// 		if(count % 2 != 0) {
+// 			oNode->next = tmp;
+// 			oNode = oNode->next;
+// 		} else {
+// 			eNode->next = tmp;
+// 			eNode = eNode->next;
+// 		}
+// 	}
+// 	oNode->next = dummyEven->next;
+// 	return dummyOdd->next;
+// }
 
-int main() {
-	ListNode* l = new ListNode(1);
-	l->next = new ListNode(3);
-	l->next->next = new ListNode(2);
-	l->next->next->next = new ListNode(5);
-	l->next->next->next->next = new ListNode(4);
-	printList(l);
-	ListNode* result = oddEvenList(l);
-	printList(result);
-	return 0;
-}
-
-
-
-
-
-
-
-
-
-
+// int main() {
+// 	ListNode* l = new ListNode(1);
+// 	l->next = new ListNode(2);
+// 	l->next->next = new ListNode(3);
+// 	l->next->next->next = new ListNode(4);
+// 	l->next->next->next->next = new ListNode(5);
+// 	printList(l);
+// 	ListNode* result = oddEvenList(l);
+// 	printList(result);
+// 	return 0;
+// }
 
