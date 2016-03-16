@@ -53,9 +53,109 @@
 // }
 
 //Median of Two Sorted Arrays
+// #include <iostream>
+// #include <vector>
+// #include <map>
+
+// using namespace std;
+
+// void printVec(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < size; i++) {
+// 			cout<<nums[i]<<" ";
+// 		}
+// 	}
+// 	cout<<endl;
+// }
+
+// // double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+// // 	//
+// // }
+
+// int partition(vector<int>& nums, int left, int right) {
+// 	if(left < right) {
+// 		int i = left;
+// 		int j = right;
+// 		int tmp = nums[i];
+// 		while(i < j) {
+// 			while(i < j && nums[i] < nums[j])
+// 				j--;
+// 			if(i < j)
+// 				nums[i++] = nums[j];
+// 			while(i < j && nums[i] < nums[j])
+// 				i++;
+// 			if(i < j)
+// 				nums[j--] = nums[i];
+// 		}
+// 		nums[i] = tmp;
+// 		return i;
+// 	}
+// 	return -1;
+// }
+
+// int findKth(vector<int>& nums, int k) {
+// 	int left = 0;
+// 	int right = nums.size() - 1;
+// 	while(right - left > 1) {
+// 		int index = partition(nums, left, right);
+// 		int dist = index - left + 1;
+// 		if(dist == k)
+// 			return nums[k];
+// 		else if(dist < k) {
+// 			left = index + 1;
+// 			k = k - dist;
+// 		} else {
+// 			right = index;
+// 		}
+// 	}
+// }
+
+// int findMedian(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		return -1;
+// 	//
+// }
+
+// void quickSort(vector<int>& nums, int left, int right) {
+// 	if(left < right) {
+// 		int i = left;
+// 		int j = right;
+// 		int tmp = nums[i];
+// 		while(i < j) {
+// 			while(i < j && nums[i] < nums[j])
+// 				j--;
+// 			if(i < j)
+// 				nums[i++] = nums[j];
+// 			while(i < j && nums[i] < nums[j])
+// 				i++;
+// 			if(i < j)
+// 				nums[j--] = nums[i];
+// 		}
+// 		nums[i] = tmp;
+// 		quickSort(nums, left, i-1);
+// 		quickSort(nums, i+1, right);
+// 	}
+// }
+
+// int main() {
+// 	vector<int> nums;
+// 	nums.push_back(1);
+// 	nums.push_back(4);
+// 	nums.push_back(3);
+// 	nums.push_back(2);
+// 	quickSort(nums, 0, nums.size() - 1);
+// 	printVec(nums);
+// 	return 0;
+// }
+
+
+//Container With Most Water
 #include <iostream>
 #include <vector>
-#include <map>
 
 using namespace std;
 
@@ -71,74 +171,22 @@ void printVec(vector<int>& nums) {
 	cout<<endl;
 }
 
-// double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-// 	//
-// }
-
-int partition(vector<int>& nums, int left, int right) {
-	if(left < right) {
-		int i = left;
-		int j = right;
-		int tmp = nums[i];
-		while(i < j) {
-			while(i < j && nums[i] < nums[j])
-				j--;
-			if(i < j)
-				nums[i++] = nums[j];
-			while(i < j && nums[i] < nums[j])
-				i++;
-			if(i < j)
-				nums[j--] = nums[i];
-		}
-		nums[i] = tmp;
-		return i;
-	}
-	return -1;
-}
-
-int findKth(vector<int>& nums, int k) {
-	int left = 0;
-	int right = nums.size() - 1;
-	while(right - left > 1) {
-		int index = partition(nums, left, right);
-		int dist = index - left + 1;
-		if(dist == k)
-			return nums[k];
-		else if(dist < k) {
-			left = index + 1;
-			k = k - dist;
+int maxArea(vector<int>& height) {
+	int result = -1;
+	if(height.size() <= 0)
+		return result;
+	int l = 0;
+	int r = height.size() - 1;
+	while(l < r) {
+		if(height[l] < height[r]) {
+			result = max(result, height[l] * (r - l));
+			l++;
 		} else {
-			right = index;
+			result = max(result, height[r] * (r - l));
+			r--;
 		}
 	}
-}
-
-int findMedian(vector<int>& nums) {
-	int size = nums.size();
-	if(size <= 0)
-		return -1;
-	//
-}
-
-void quickSort(vector<int>& nums, int left, int right) {
-	if(left < right) {
-		int i = left;
-		int j = right;
-		int tmp = nums[i];
-		while(i < j) {
-			while(i < j && nums[i] < nums[j])
-				j--;
-			if(i < j)
-				nums[i++] = nums[j];
-			while(i < j && nums[i] < nums[j])
-				i++;
-			if(i < j)
-				nums[j--] = nums[i];
-		}
-		nums[i] = tmp;
-		quickSort(nums, left, i-1);
-		quickSort(nums, i+1, right);
-	}
+	return result;
 }
 
 int main() {
@@ -147,12 +195,10 @@ int main() {
 	nums.push_back(4);
 	nums.push_back(3);
 	nums.push_back(2);
-	quickSort(nums, 0, nums.size() - 1);
-	printVec(nums);
+	int result = maxArea(nums);
+	cout<<result<<endl;
 	return 0;
 }
-
-
 
 
 
