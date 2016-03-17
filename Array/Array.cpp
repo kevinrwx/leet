@@ -53,23 +53,23 @@
 // }
 
 //Median of Two Sorted Arrays
-#include <iostream>
-#include <vector>
-#include <map>
+// #include <iostream>
+// #include <vector>
+// #include <map>
 
-using namespace std;
+// using namespace std;
 
-void printVec(vector<int>& nums) {
-	int size = nums.size();
-	if(size <= 0)
-		cout<<"empty vector";
-	else {
-		for(int i = 0; i < size; i++) {
-			cout<<nums[i]<<" ";
-		}
-	}
-	cout<<endl;
-}
+// void printVec(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < size; i++) {
+// 			cout<<nums[i]<<" ";
+// 		}
+// 	}
+// 	cout<<endl;
+// }
 
 // //查找一个无序数组中第k大的数
 // int partition(vector<int>& nums, int left, int right) {
@@ -107,41 +107,49 @@ void printVec(vector<int>& nums) {
 // 	return INT_MAX;
 // }
 
-//查找两个有序数组中第k大的数
-int findKthSortedArrays(vector<int>& nums1, int start1, int len1, vector<int>& nums2, int start2, int len2, int k) {
-	if(len2 > len1)
-		return findKthSortedArrays(nums2, start2, len2, nums1, start1, len1, k);
-	if(len1 == 0)
-		return nums2[start2 + k - 1];
-}
+// //查找两个有序数组中第k大的数
+// int findKthSortedArrays(vector<int>& nums1, int start1, int len1, vector<int>& nums2, int start2, int len2, int k) {
+// 	if(len1 > len2)
+// 		return findKthSortedArrays(nums2, start2, len2, nums1, start1, len1, k);
+// 	if(len1 == 0)
+// 		return nums2[start2 + k - 1];
+// 	if(k == 1)
+// 		return min(nums1[start1], nums2[start2]);
+// 	int pa = min(k/2, len1);
+// 	int pb = k - pa;
+// 	if(nums1[start1 + pa - 1] == nums2[start2 + pb - 1])
+// 		return nums1[start1 + pa - 1];
+// 	else if(nums1[start1 + pa - 1] < nums2[start2 + pb - 1])
+// 		return findKthSortedArrays(nums1, start1+pa, len1-pa, nums2, start2, len2, k-pa);
+// 	else
+// 		return findKthSortedArrays(nums1, start1, len1, nums2, start2+pb, len2-pb, k-pb);
+// }
+// //这道题目跟上一道题目很类似，都是要求中位数，我们的思路就是先求数组第k位的数，然后再转化成求中位数
+// double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+// 	int total = nums1.size() + nums2.size();
+// 	if(total % 2 == 1) {
+// 		return findKthSortedArrays(nums1, 0, nums1.size(),  nums2, 0, nums2.size(), total/2 + 1);
+// 	} else {
+// 		return (findKthSortedArrays(nums1, 0, nums1.size(),  nums2, 0, nums2.size(), total/2) + findKthSortedArrays(nums1, 0, nums1.size(),  nums2, 0, nums2.size(), total/2 + 1)) / 2.0;
+// 	}
+// }
 
-double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-	int total = nums1.size() + nums2.size();
-	if(total % 2 == 1) {
-		return findKthSortedArrays(nums1, 0, nums1.size(),  nums2, 0, nums2.size(), total/2 + 1);
-	} else {
-		return (findKthSortedArrays(nums1, 0, nums1.size(),  nums2, 0, nums2.size(), total/2) + findKthSortedArrays(nums1, 0, nums1.size(),  nums2, 0, nums2.size(), total/2 + 1)) / 2.0;
-	}
-}
-
-int main() {
-	vector<int> nums1;
-	nums1.push_back(1);
-	nums1.push_back(3);
-	nums1.push_back(5);
-	nums1.push_back(7);
-	vector<int> nums2;
-	nums2.push_back(2);
-	nums2.push_back(4);
-	nums2.push_back(6);
-	nums2.push_back(8);
-	// quickSort(nums, 0, nums.size() - 1);
-	// printVec(nums);
-	int k = 7;
-	int result = findKthSortedArrays(nums1, 0, nums1.size(),  nums2, 0, nums2.size(), k);
-	cout<<result<<endl;
-	return 0;
-}
+// int main() {
+// 	vector<int> nums1;
+// 	nums1.push_back(1);
+// 	nums1.push_back(3);
+// 	nums1.push_back(5);
+// 	nums1.push_back(7);
+// 	vector<int> nums2;
+// 	nums2.push_back(2);
+// 	nums2.push_back(4);
+// 	nums2.push_back(6);
+// 	nums2.push_back(8);
+// 	int k = 5;
+// 	int result = findKthSortedArrays(nums1, 0, nums1.size(),  nums2, 0, nums2.size(), k);
+// 	cout<<result<<endl;
+// 	return 0;
+// }
 
 
 //Container With Most Water
@@ -224,8 +232,159 @@ int main() {
 
 
 
+//Remove Duplicates from Sorted Array
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// void printVec(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < size; i++) {
+// 			cout<<nums[i]<<" ";
+// 		}
+// 	}
+// 	cout<<endl;
+// }
+
+// int removeDuplicates(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		return 0;
+// 	int i = 1;
+// 	int len = 0;
+// 	while(i < size) {
+// 		if(nums[len] != nums[i])
+// 			nums[++len] = nums[i];
+// 		i++;
+// 	}
+// 	return len+1;
+// }
+
+// int main() {
+// 	vector<int> nums;
+// 	nums.push_back(1);
+// 	nums.push_back(1);
+// 	nums.push_back(2);
+// 	nums.push_back(3);
+// 	nums.push_back(3);
+// 	nums.push_back(4);
+// 	cout<<"len before: "<<nums.size()<<endl;
+// 	int len = removeDuplicates(nums);
+// 	cout<<"len after: "<<len<<endl;
+// 	return 0;
+// }
+
+//Remove Element
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// void printVec(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < size; i++) {
+// 			cout<<nums[i]<<" ";
+// 		}
+// 	}
+// 	cout<<endl;
+// }
+
+// int removeElement(vector<int>& nums, int val) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		return 0;
+// 	int i = 0;
+// 	int len = 0;
+// 	while(i < size) {
+// 		if(nums[i] != val) {
+// 			nums[len++] = nums[i];
+// 		}
+// 		i++;
+// 	}
+// 	return len;
+// }
+
+// int main() {
+// 	vector<int> nums;
+// 	nums.push_back(3);
+// 	nums.push_back(2);
+// 	nums.push_back(2);
+// 	nums.push_back(3);
+// 	// nums.push_back(3);
+// 	// nums.push_back(4);
+// 	int val = 2;
+// 	cout<<"len before: "<<nums.size()<<endl;
+// 	int len = removeElement(nums, val);
+// 	cout<<"len after: "<<len<<endl;
+// 	return 0;
+// }
 
 
+//Search in Rotated Sorted Array
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// void printVec(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < size; i++) {
+// 			cout<<nums[i]<<" ";
+// 		}
+// 	}
+// 	cout<<endl;
+// }
+
+// int search(vector<int>& nums, int target) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		return -1;
+// 	int l = 0;
+// 	int r = size - 1;
+// 	int mid;
+// 	while(l <= r) {
+// 		mid = l + (r - l) / 2;
+// 		if(nums[mid] == target)
+// 			return mid;
+// 		if(nums[mid] >= nums[l]) {
+// 			if(target >= nums[l] && target < nums[mid])
+// 				r = mid - 1;
+// 			else
+// 				l = mid + 1;
+// 		} else {
+// 			if(target > nums[mid] && target <= nums[r])
+// 				l = mid + 1;
+// 			else
+// 				r = mid - 1;
+// 		}
+// 	}
+// 	return -1;
+// }
+
+// int main() {
+// 	vector<int> nums;
+// 	nums.push_back(4);
+// 	nums.push_back(5);
+// 	nums.push_back(6);
+// 	nums.push_back(7);
+// 	nums.push_back(0);
+// 	nums.push_back(1);
+// 	nums.push_back(2);
+// 	int target = 2;
+// 	int index = search(nums, target);
+// 	cout<<"index: "<<index<<endl;
+// 	return 0;
+// }
 
 
 
