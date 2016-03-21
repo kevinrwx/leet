@@ -710,30 +710,60 @@
 // }
 
 //First Missing Positive
-#include <iostream>
-#include <vector>
+// #include <iostream>
+// #include <vector>
 
-using namespace std;
+// using namespace std;
 
-void printVec(vector<int>& nums) {
-	int size = nums.size();
-	if(size <= 0)
-		cout<<"empty vector";
-	else {
-		for(int i = 0; i < size; i++) {
-			cout<<nums[i]<<" ";
-		}
-	}
-	cout<<endl;
-}
+// void printVec(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < size; i++) {
+// 			cout<<nums[i]<<" ";
+// 		}
+// 	}
+// 	cout<<endl;
+// }
 
-int firstMissingPositive(vector<int>& nums) {
-	//
-}
+// void swap(int* x, int* y) {
+// 	int tmp = *x;
+// 	*x = *y;
+// 	*y = tmp;
+// }
 
-int main() {
-	//
-}
+// //由于题目要求只能使用常数的空间，所以我们不能再额外开辟数组
+// //所以我们的思路就是在index为i的位置上存放(i+1)大小的数
+// int firstMissingPositive(vector<int>& nums) {
+// 	int length = nums.size();
+// 	if(length <= 0)
+// 		return 1;
+// 	int pos = 0;
+// 	while(pos < length) {
+// 		//循环条件要注意nums[pos] != nums[nums[pos] - 1]，因为有边界条件[1,1]
+// 		if(nums[pos] != pos+1 && nums[pos] >= 1 && nums[pos] <= length && nums[pos] != nums[nums[pos] - 1])
+// 			swap(&nums[pos], &nums[nums[pos] - 1]);
+// 		else
+// 			pos++;
+// 	}
+// 	for(int i = 0; i < length; i++)
+// 		if(nums[i] != i+1) {
+// 			return i+1;
+// 		}
+// 	return pos+1;
+// }
+
+// int main() {
+// 	vector<int> nums;
+// 	// nums.push_back(3);
+// 	// nums.push_back(4);
+// 	// nums.push_back(1);
+// 	nums.push_back(1);
+// 	int result = firstMissingPositive(nums);
+// 	cout<<result<<endl;
+// 	return 0;
+// }
 
 
 //Trapping Rain Water
@@ -754,15 +784,56 @@ int main() {
 // 	cout<<endl;
 // }
 
+// //这次看题稍微有了点思路，但是还是不能完整的思考出来，还需要看原来的题解
 // int trap(vector<int>& height) {
-// 	//
+// 	int length = height.size();
+// 	if(length <= 2)
+// 		return 0;
+// 	int maxId;
+// 	int maximum = 0;
+// 	int result = 0;
+// 	for(int i = 0; i < length; i++) {
+// 		if(height[i] >= maximum) {
+// 			maxId = i;
+// 			maximum = height[i];
+// 		}
+// 	}
+// 	int left = height[0];
+// 	for(int i = 0; i < maxId; i++) {
+// 		if(left <= height[i])
+// 			left = height[i];
+// 		else
+// 			result += (left - height[i]);
+// 	}
+// 	int right = height[length - 1];
+// 	for(int i = length-1; i > maxId; i--) {
+// 		if(right <= height[i])
+// 			right = height[i];
+// 		else
+// 			result += (right - height[i]);
+// 	}
+// 	return result;
 // }
 
 // int main() {
-// 	//
+// 	// 0,1,0,2,1,0,1,3,2,1,2,1
+// 	vector<int> height;
+// 	height.push_back(0);
+// 	height.push_back(1);
+// 	height.push_back(0);
+// 	height.push_back(2);
+// 	height.push_back(1);
+// 	height.push_back(0);
+// 	height.push_back(1);
+// 	height.push_back(3);
+// 	height.push_back(2);
+// 	height.push_back(1);
+// 	height.push_back(2);
+// 	height.push_back(1);
+// 	int result = trap(height);
+// 	cout<<result<<endl;
+// 	return 0;
 // }
-
-
 
 //Jump Game II
 // #include <iostream>
