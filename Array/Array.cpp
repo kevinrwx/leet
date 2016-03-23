@@ -986,7 +986,7 @@
 
 // using namespace std;
 
-// void printVec(vector<vector<int> >& nums) {
+// void printVec(vector<vector<bool> >& nums) {
 // 	int size = nums.size();
 // 	if(size <= 0)
 // 		cout<<"empty vector"<<endl;
@@ -1005,14 +1005,33 @@
 // 		return result;
 // 	int m = matrix.size();
 // 	int n = matrix[0].size();
-// 	int i, j, k, w, x;
-// 	for(i = 0; i < m/2; i++) {
-// 		for(j = i; j < n-i; j++)
-// 			result.push_back(matrix[i][j]);
-// 		for(k = i+1; k < ; k++) 
-// 			result.push_back(matrix[j][k]);
-// 		for(w = m-1; w >= ; w--)
-// 			result.push_back(matrix[][w]);
+// 	vector<vector<bool> >tmp(m, vector<bool>(n, false));
+// 	int i, j, k, w, r;
+// 	for(i = 0; i <= m/2; i++) {
+// 		for(j = 0; j < n; j++) {
+// 			if(tmp[i][j] == false) {
+// 				tmp[i][j] = true;
+// 				result.push_back(matrix[i][j]);
+// 			}
+// 		}
+// 		for(k = 0; k < m; k++) {
+// 			if(n-i-1 >= 0 && n-i-1 < n && tmp[k][n-i-1] == false) {
+// 				tmp[k][n-i-1] = true;
+// 				result.push_back(matrix[k][n-i-1]);
+// 			}
+// 		}
+// 		for(w = n-1; w >= 0; w--) {
+// 			if(m-i-1 >= 0 && m-i-1 < m && tmp[m-i-1][w] == false) {
+// 				tmp[m-i-1][w] = true;
+// 				result.push_back(matrix[m-i-1][w]);
+// 			}
+// 		}
+// 		for(r = m-1; r >= 0; r--) {
+// 			if(tmp[r][i] == false) {
+// 				tmp[r][i] = true;
+// 				result.push_back(matrix[r][i]);
+// 			}
+// 		}
 // 	}
 // 	return result;
 // }
@@ -1036,18 +1055,175 @@
 // 	matrix.push_back(tmp1);
 // 	matrix.push_back(tmp2);
 // 	matrix.push_back(tmp3);
-// 	printVec(matrix);
+// 	// printVec(matrix);
+// 	vector<int> result = spiralOrder(matrix);
+// 	for(int i = 0; i < result.size(); i++)
+// 		cout<<result[i]<<" ";
+// 	cout<<endl;
 // 	return 0;
 // }
 
 
+//Jump Game
+// #include <iostream>
+// #include <vector>
 
+// using namespace std;
 
+// void printVec(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < size; i++) {
+// 			cout<<nums[i]<<" ";
+// 		}
+// 	}
+// 	cout<<endl;
+// }
 
+// //这道题目的思路就是保持每一步都是最大的能移动步数，即保证局部最优
+// bool canJump(vector<int>& nums) {
+// 	int length = nums.size();
+// 	if(length <= 0)
+// 		return true;
+// 	int step = nums[0];
+// 	for(int i = 1; i < length; i++) {
+// 		if(step > 0) {
+// 			step = max(--step, nums[i]);
+// 		} else {
+// 			return false;
+// 		}
+// 	}
+// 	return true;
+// }
 
+// int main() {
+// 	vector<int> nums;
+// 	nums.push_back(3);
+// 	nums.push_back(2);
+// 	nums.push_back(1);
+// 	nums.push_back(0);
+// 	nums.push_back(4);
+// 	bool result = canJump(nums);
+// 	if(result)
+// 		cout<<"can jump"<<endl;
+// 	else
+// 		cout<<"can't jump"<<endl;
+// 	return 0;
+// }
 
+// //Merge Intervals
+// #include <iostream>
+// #include <vector>
+// #include <algorithm>
 
+// using namespace std;
 
+// struct Interval {
+// 	int start;
+// 	int end;
+// 	Interval() : start(0), end(0) {}
+// 	Interval(int s, int e) : start(s), end(e) {}
+// };
+
+// void printInterval(vector<Interval>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < size; i++) {
+// 			cout<<nums[i].start<<" "<<nums[i].end<<endl;
+// 		}
+// 	}
+// 	cout<<endl;
+// }
+
+// bool static cmp(Interval a, Interval b) {
+// 	return a.start < b.start;
+// }
+
+// vector<Interval> merge(vector<Interval>& intervals) {
+// 	vector<Interval> result;
+// 	int length = intervals.size();
+// 	if(length <= 0)
+// 		return result;
+// 	sort(intervals.begin(), intervals.end(), cmp);
+// 	result.push_back(intervals[0]);
+// 	for(int i = 1; i < length; i++) {
+// 		int tmp = result.size();
+// 		if(result[tmp - 1].end < intervals[i].start)
+// 			result.push_back(intervals[i]);
+// 		else if(result[tmp - 1].end >= intervals[i].start && result[tmp - 1].end < intervals[i].end) {
+// 			result[tmp - 1].end = intervals[i].end;
+// 		} else {
+// 			//
+// 		}
+// 	}
+// 	return result;
+// }
+
+// int main() {
+// 	vector<Interval> intervals;
+// 	Interval* tmp1 = new Interval(1, 3);
+// 	Interval* tmp2 = new Interval(2, 6);
+// 	intervals.push_back(*tmp2);
+// 	intervals.push_back(*tmp1);
+// 	vector<Interval> result = merge(intervals);
+// 	printInterval(result);
+// 	return 0;
+// }
+
+//Insert Interval
+// #include <iostream>
+// #include <vector>
+// #include <algorithm>
+
+// using namespace std;
+
+// struct Interval {
+// 	int start;
+// 	int end;
+// 	Interval() : start(0), end(0) {}
+// 	Interval(int s, int e) : start(s), end(e) {}
+// };
+
+// void printInterval(vector<Interval>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < size; i++) {
+// 			cout<<nums[i].start<<" "<<nums[i].end<<endl;
+// 		}
+// 	}
+// 	cout<<endl;
+// }
+
+// bool static cmp(Interval a, Interval b) {
+// 	return a.start < b.start;
+// }
+
+// vector<Interval> insert(vector<Interval>& intervals, Interval newInterval) {
+// 	vector<Interval> result;
+// 	int length = intervals.size();
+// 	if(length <= 0)
+// 		return result;
+// 	sort(intervals.begin(), intervals.end(), cmp);
+
+// 	return result;
+// }
+
+// int main() {
+// 	vector<Interval> intervals;
+// 	Interval* tmp1 = new Interval(1, 3);
+// 	Interval* tmp2 = new Interval(2, 6);
+// 	intervals.push_back(*tmp2);
+// 	intervals.push_back(*tmp1);
+// 	vector<Interval> result = merge(intervals);
+// 	printInterval(result);
+// 	return 0;
+// }
 
 
 
