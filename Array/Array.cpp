@@ -1225,3 +1225,245 @@
 // 	return 0;
 // }
 
+
+//Spiral Matrix II
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// void printVec(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < size; i++) {
+// 			cout<<nums[i]<<" ";
+// 		}
+// 	}
+// 	cout<<endl;
+// }
+
+// vector<vector<int> > generateMatrix(int n) {
+// 	//
+// }
+
+// int main() {
+// 	vector<int> nums;
+// 	nums.push_back(3);
+// 	nums.push_back(2);
+// 	nums.push_back(1);
+// 	nums.push_back(0);
+// 	nums.push_back(4);
+// 	bool result = canJump(nums);
+// 	if(result)
+// 		cout<<"can jump"<<endl;
+// 	else
+// 		cout<<"can't jump"<<endl;
+// 	return 0;
+// }
+
+
+//Unique Paths
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// void printVec(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < size; i++) {
+// 			cout<<nums[i]<<" ";
+// 		}
+// 	}
+// 	cout<<endl;
+// }
+
+// int uniquePaths(int m, int n) {
+// 	if(m <= 0 || n <= 0)
+// 		return 0;
+// 	vector<int> tmp(m, 1);
+// 	for(int i = 1; i < n; i++) {
+// 		for(int j = 1; j < m; j++) {
+// 			tmp[j] += tmp[j-1];
+// 		}
+// 	}
+// 	return tmp[m-1];
+// }
+
+// int main() {
+// 	int m = 3;
+// 	int n = 4;
+// 	int result = uniquePaths(m, n);
+// 	cout<<result<<endl;
+// 	return 0;
+// }
+
+//Unique Paths II
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// void printVec(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < size; i++) {
+// 			cout<<nums[i]<<" ";
+// 		}
+// 	}
+// 	cout<<endl;
+// }
+
+// int uniquePathsWithObstacles(vector<vector<int> >& obstacleGrid) {
+// 	if(obstacleGrid.size() <= 0 || obstacleGrid[0].size() <= 0)
+// 		return 0;
+// 	int n = obstacleGrid.size();
+// 	int m = obstacleGrid[0].size();
+// 	vector<vector<int> > tmp(n, vector<int>(m, 0));
+// 	for(int i = 0; i < n; i++) {
+// 		if(obstacleGrid[i][0] == 0)
+// 			tmp[i][0] = 1;
+// 		else
+// 			break;
+// 	}
+// 	for(int j = 0; j < m; j++) {
+// 		if(obstacleGrid[0][j] == 0)
+// 			tmp[0][j] = 1;
+// 		else
+// 			break;
+// 	}
+// 	for(int i = 1; i < n; i++) {
+// 		for(int j = 1; j < m; j++) {
+// 			if(obstacleGrid[i][j] == 0)
+// 				tmp[i][j] = tmp[i-1][j] + tmp[i][j-1];
+// 			else
+// 				tmp[i][j] = 0;
+// 		}
+// 	}
+// 	return tmp[n-1][m-1];
+// }
+
+// int main() {
+// 	vector<vector<int> > obstacleGrid;
+// 	vector<int> tmp1;
+// 	tmp1.push_back(0);
+// 	tmp1.push_back(0);
+// 	tmp1.push_back(0);
+// 	vector<int> tmp2;
+// 	tmp2.push_back(0);
+// 	tmp2.push_back(1);
+// 	tmp2.push_back(0);
+// 	vector<int> tmp3;
+// 	tmp3.push_back(0);
+// 	tmp3.push_back(0);
+// 	tmp3.push_back(0);
+// 	obstacleGrid.push_back(tmp1);
+// 	obstacleGrid.push_back(tmp2);
+// 	obstacleGrid.push_back(tmp3);
+// 	int result = uniquePathsWithObstacles(obstacleGrid);
+// 	cout<<result<<endl;
+// 	return 0;
+// }
+
+//Minimum Path Sum
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// void printVec(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < size; i++) {
+// 			cout<<nums[i]<<" ";
+// 		}
+// 	}
+// 	cout<<endl;
+// }
+
+// int minPathSum(vector<vector<int> >& grid) {
+// 	if(grid.size() <= 0 || grid[0].size() <= 0)
+// 		return 0;
+// 	int m = grid.size();
+// 	int n = grid[0].size();
+// 	vector<int> tmp(n, 0);
+// 	for(int j = 0; j < n; j++) {
+// 		if(j != 0)
+// 			tmp[j] = tmp[j-1] + grid[0][j];
+// 		else
+// 			tmp[j] = grid[0][0];
+// 	}
+// 	for(int i = 1; i < m; i++) {
+// 		for(int j = 0; j < n; j++) {
+// 			if(j != 0)
+// 				tmp[j] = min(tmp[j-1], tmp[j]) + grid[i][j];
+// 			else
+// 				tmp[j] += grid[i][j];
+// 		}
+// 	}
+// 	return tmp[n-1];
+// }
+
+
+// int main() {
+// 	vector<vector<int> > grid;
+// 	vector<int> tmp1;
+// 	tmp1.push_back(1);
+// 	tmp1.push_back(2);
+// 	tmp1.push_back(3);
+// 	vector<int> tmp2;
+// 	tmp2.push_back(1);
+// 	tmp2.push_back(2);
+// 	tmp2.push_back(3);
+// 	vector<int> tmp3;
+// 	tmp3.push_back(1);
+// 	tmp3.push_back(2);
+// 	tmp3.push_back(3);
+// 	grid.push_back(tmp1);
+// 	grid.push_back(tmp2);
+// 	grid.push_back(tmp3);
+// 	int result = minPathSum(grid);
+// 	cout<<result<<endl;
+// 	return 0;
+// }
+
+//Plus One
+#include <iostream>
+
+using namespace std;
+
+void printVec(vector<int>& nums) {
+	int size = nums.size();
+	if(size <= 0)
+		cout<<"empty vector";
+	else {
+		for(int i = 0; i < size; i++) {
+			cout<<nums[i]<<" ";
+		}
+	}
+	cout<<endl;
+}
+
+vector<int> plusOne(vector<int>& digits) {
+	vector<int> result;
+	int size = digits.size();
+	if(size <= 0)
+		return result;
+	//
+}
+
+int main() {
+	//
+}
+
+
+
+
