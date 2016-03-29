@@ -1436,7 +1436,75 @@
 // }
 
 //Plus One
+// #include <iostream>
+// #include <vector>
+// #include <algorithm>
+
+// using namespace std;
+
+// void printVec(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < size; i++) {
+// 			cout<<nums[i]<<" ";
+// 		}
+// 	}
+// 	cout<<endl;
+// }
+
+// //使用额外的空间来存储结果
+// vector<int> plusOne(vector<int>& digits) {
+// 	vector<int> result;
+// 	int size = digits.size();
+// 	if(size <= 0)
+// 		return result;
+// 	int tmp = 1;
+// 	for(int i = size - 1; i >= 0; i--) {
+// 		result.push_back((tmp+digits[i]) % 10);
+// 		tmp = (tmp+digits[i]) / 10;
+// 	}
+// 	if(tmp != 0)
+// 		result.push_back(tmp);
+// 	reverse(result.begin(), result.end());
+// 	return result;
+// }
+
+// //不适用额外的空间存储结果
+// vector<int> plusOne(vector<int>& digits) {
+// 	int size = digits.size();
+// 	if(size <= 0)
+// 		return digits;
+// 	reverse(digits.begin(), digits.end());
+// 	int flag = 1;
+// 	for(int i = 0; i < size; i++) {
+// 		int tmp = flag + digits[i];
+// 		digits[i] = tmp % 10;
+// 		flag = tmp / 10;
+// 	}
+// 	//要注意这点，记得最后要将最后进位的结果push到digits中
+// 	if(flag != 0)
+// 		digits.push_back(flag);
+// 	reverse(digits.begin(), digits.end());
+// 	return digits;
+// }
+
+// int main() {
+// 	vector<int> digits;
+// 	digits.push_back(1);
+// 	digits.push_back(2);
+// 	digits.push_back(3);
+// 	vector<int> result = plusOne(digits);
+// 	printVec(result);
+// 	return 0;
+// }
+
+
+//Set Matrix Zeroes
 #include <iostream>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -1452,18 +1520,69 @@ void printVec(vector<int>& nums) {
 	cout<<endl;
 }
 
-vector<int> plusOne(vector<int>& digits) {
-	vector<int> result;
-	int size = digits.size();
-	if(size <= 0)
-		return result;
-	//
+//这种方法使用O(m+n)额外的空间，因此还有继续优化的空间
+// void setZeroes(vector<vector<int> >& matrix) {
+// 	if(matrix.size() <= 0 || matrix[0].size() <= 0)
+// 		return ;
+// 	int m = matrix.size();
+// 	int n = matrix[0].size();
+// 	vector<bool> row(m, true);
+// 	vector<bool> col(n, true);
+// 	for(int i = 0; i < m; i++) {
+// 		for(int j = 0; j < n; j++) {
+// 			if(matrix[i][j] == 0) {
+// 				row[i] = false;
+// 				col[j] = false;
+// 			}
+// 		}
+// 	}
+// 	for(int i = 0; i < m; i++) {
+// 		if(row[i] == false) {
+// 			for(int j = 0; j < n; j++)
+// 				matrix[i][j] = 0;
+// 		}
+// 	}
+// 	for(int i = 0; i < n; i++) {
+// 		if(col[i] == false) {
+// 			for(int j = 0; j < m; j++)
+// 				matrix[j][i] = 0;
+// 		}
+// 	}
+// }
+
+void setZeroes(vector<vector<int> >& matrix) {
+	if(matrix.size() <= 0 || matrix[0].size() <= 0)
+		return ;
+	int m = matrix.size();
+	int n = matrix[0].size();
+	int row;
+	int col;
+	if(matrix[0][0] == 0) {
+		row = 0;
+		col = 0;
+	} else {
+		for(int i = 1; i < m; i++) {
+			if(matrix[i][0] == 0) {
+				row = 0;
+				break;
+			}
+		}
+		for(int j = 1; j < n; j++) {
+			if(matrix[0][j] == 0) {
+				col = 0;
+				break;
+			}
+		}
+	}
 }
 
 int main() {
-	//
+	vector<int> digits;
+	digits.push_back(1);
+	digits.push_back(2);
+	digits.push_back(3);
+	vector<int> result = plusOne(digits);
+	printVec(result);
+	return 0;
 }
-
-
-
 
