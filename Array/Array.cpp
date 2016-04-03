@@ -210,27 +210,201 @@
 
 // using namespace std;
 
-// void printVec(vector<int>& nums) {
+// void printVec(vector<vector<int> >& nums) {
 // 	int size = nums.size();
 // 	if(size <= 0)
-// 		cout<<"empty vector";
+// 		cout<<"empty vector"<<endl;
 // 	else {
 // 		for(int i = 0; i < size; i++) {
-// 			cout<<nums[i]<<" ";
+// 			for(int j = 0; j < nums[i].size(); j++)
+// 				cout<<nums[i][j]<<" ";
+// 			cout<<endl;
 // 		}
 // 	}
-// 	cout<<endl;
 // }
 
+// //这种思路是比较清晰的，先排序，然后对于排好序的每个元素，再用一次two sum，找到所有可能的结果，最后再去重
+// //但是现在这种思路在leetcode上提交代码时会超时，因此对于重复元素需要跳过
 // vector<vector<int> > threeSum(vector<int>& nums) {
-// 	//
+// 	vector<vector<int> > result;
+// 	int size = nums.size();
+// 	if(size < 3)
+// 		return result;
+// 	sort(nums.begin(), nums.end());
+// 	for(int i = 0; i < size-2; i++) {
+// 		int j = i+1;
+// 		int k = size-1;
+// 		while(j < k) {
+// 			int sum = nums[i] + nums[j] + nums[k];
+// 			if(sum == 0) {
+// 				vector<int> tmp;
+// 				tmp.push_back(nums[i]);
+// 				tmp.push_back(nums[j]);
+// 				tmp.push_back(nums[k]);
+// 				result.push_back(tmp);;
+// 				j++;
+// 				k--;
+// 			} else if(sum < 0) {
+// 				j++;
+// 			} else {
+// 				k--;
+// 			}
+// 		}
+// 	}
+// 	sort(result.begin(), result.end());
+// 	result.erase(unique(result.begin(), result.end()), result.end());
+// 	return result;
+// }
+
+// //对于跳过重复元素的思路需要注意
+// vector<vector<int> > threeSum(vector<int>& nums) {
+// 	vector<vector<int> > result;
+// 	int size = nums.size();
+// 	if(size < 3)
+// 		return result;
+// 	sort(nums.begin(), nums.end());
+// 	for(int i = 0; i < size-2; i++) {
+// 		int j = i+1;
+// 		int k = size-1;
+// 		while(j < k) {
+// 			int sum = nums[i] + nums[j] + nums[k];
+// 			if(sum == 0) {
+// 				vector<int> tmp;
+// 				tmp.push_back(nums[i]);
+// 				tmp.push_back(nums[j]);
+// 				tmp.push_back(nums[k]);
+// 				result.push_back(tmp);;
+// 				j++;
+// 				k--;
+// 				while(j < k && nums[j] == nums[j-1])
+// 					j++;
+// 				while(j < k && nums[k] == nums[k+1])
+// 					k--;
+// 			} else if(sum < 0) {
+// 				j++;
+// 			} else {
+// 				k--;
+// 			}
+// 		}
+// 		while(i < size-1 && nums[i] == nums[i+1])
+// 			i++;
+// 	}
+// 	return result;
 // }
 
 // int main() {
-// 	//
+// 	vector<int> nums;
+// 	nums.push_back(-1);
+// 	nums.push_back(0);
+// 	nums.push_back(1);
+// 	nums.push_back(0);
+// 	// nums.push_back(2);
+// 	// nums.push_back(-1);
+// 	// nums.push_back(-4);
+// 	vector<vector<int> > result = threeSum(nums);
+// 	printVec(result);
+// 	return 0;
+// }
+
+//3Sum Closest
+// #include <iostream>
+// #include <vector>
+// #include <cmath>
+
+// using namespace std;
+
+// //这道题仍然借鉴了3sum那题的经验，只不过里面判断的思路相对简单，即sum比target小就把j++，sum比target大就把k--
+// //同时对于更接近target值的结果做一下记录
+// int threeSumClosest(vector<int>& nums, int target) {
+// 	int result = 0;
+// 	int size = nums.size();
+// 	if(size < 3)
+// 		return result;
+// 	sort(nums.begin(), nums.end());
+// 	int delta = INT_MAX;
+// 	for(int i = 0; i < size-2; i++) {
+// 		int j = i+1;
+// 		int k = size-1;
+// 		while(j < k) {
+// 			int sum = nums[i]+nums[j]+nums[k];
+// 			if(sum <= target) {
+// 				if(target-sum <= delta) {
+// 					delta = abs(sum - target);
+// 					result = sum;
+// 				}
+// 				j++;
+// 			} else {
+// 				if(sum-target <= delta) {
+// 					delta = abs(sum-target);
+// 					result = sum;
+// 				}
+// 				k--;
+// 			}
+// 		}
+// 	}
+// 	return result;
+// }
+
+// int main() {
+// 	vector<int> nums;
+// 	nums.push_back(0);
+// 	nums.push_back(2);
+// 	nums.push_back(1);
+// 	nums.push_back(-3);
+// 	int target = 1;
+// 	int result = threeSumClosest(nums, target);
+// 	cout<<result<<endl;
+// 	return 0;
 // }
 
 
+//4Sum
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// int threeSumClosest(vector<int>& nums, int target) {
+// 	int result = 0;
+// 	int size = nums.size();
+// 	if(size < 3)
+// 		return result;
+// 	sort(nums.begin(), nums.end());
+// 	int delta = INT_MAX;
+// 	for(int i = 0; i < size-2; i++) {
+// 		int j = i+1;
+// 		int k = size-1;
+// 		while(j < k) {
+// 			int sum = nums[i]+nums[j]+nums[k];
+// 			if(sum <= target) {
+// 				if(target-sum <= delta) {
+// 					delta = abs(sum - target);
+// 					result = sum;
+// 				}
+// 				j++;
+// 			} else {
+// 				if(sum-target <= delta) {
+// 					delta = abs(sum-target);
+// 					result = sum;
+// 				}
+// 				k--;
+// 			}
+// 		}
+// 	}
+// 	return result;
+// }
+
+// int main() {
+// 	vector<int> nums;
+// 	nums.push_back(0);
+// 	nums.push_back(2);
+// 	nums.push_back(1);
+// 	nums.push_back(-3);
+// 	int target = 1;
+// 	int result = threeSumClosest(nums, target);
+// 	cout<<result<<endl;
+// 	return 0;
+// }
 
 //Remove Duplicates from Sorted Array
 // #include <iostream>
@@ -1502,87 +1676,193 @@
 
 
 //Set Matrix Zeroes
-#include <iostream>
-#include <vector>
-#include <algorithm>
+// #include <iostream>
+// #include <vector>
+// #include <algorithm>
 
-using namespace std;
+// using namespace std;
 
-void printVec(vector<int>& nums) {
-	int size = nums.size();
-	if(size <= 0)
-		cout<<"empty vector";
-	else {
-		for(int i = 0; i < size; i++) {
-			cout<<nums[i]<<" ";
-		}
-	}
-	cout<<endl;
-}
+// void printVec(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < size; i++) {
+// 			cout<<nums[i]<<" ";
+// 		}
+// 	}
+// 	cout<<endl;
+// }
 
-//这种方法使用O(m+n)额外的空间，因此还有继续优化的空间
+// //这种方法使用O(m+n)额外的空间，因此还有继续优化的空间
+// // void setZeroes(vector<vector<int> >& matrix) {
+// // 	if(matrix.size() <= 0 || matrix[0].size() <= 0)
+// // 		return ;
+// // 	int m = matrix.size();
+// // 	int n = matrix[0].size();
+// // 	vector<bool> row(m, true);
+// // 	vector<bool> col(n, true);
+// // 	for(int i = 0; i < m; i++) {
+// // 		for(int j = 0; j < n; j++) {
+// // 			if(matrix[i][j] == 0) {
+// // 				row[i] = false;
+// // 				col[j] = false;
+// // 			}
+// // 		}
+// // 	}
+// // 	for(int i = 0; i < m; i++) {
+// // 		if(row[i] == false) {
+// // 			for(int j = 0; j < n; j++)
+// // 				matrix[i][j] = 0;
+// // 		}
+// // 	}
+// // 	for(int i = 0; i < n; i++) {
+// // 		if(col[i] == false) {
+// // 			for(int j = 0; j < m; j++)
+// // 				matrix[j][i] = 0;
+// // 		}
+// // 	}
+// // }
+
 // void setZeroes(vector<vector<int> >& matrix) {
 // 	if(matrix.size() <= 0 || matrix[0].size() <= 0)
 // 		return ;
 // 	int m = matrix.size();
 // 	int n = matrix[0].size();
-// 	vector<bool> row(m, true);
-// 	vector<bool> col(n, true);
-// 	for(int i = 0; i < m; i++) {
-// 		for(int j = 0; j < n; j++) {
-// 			if(matrix[i][j] == 0) {
-// 				row[i] = false;
-// 				col[j] = false;
+// 	int row;
+// 	int col;
+// 	if(matrix[0][0] == 0) {
+// 		row = 0;
+// 		col = 0;
+// 	} else {
+// 		for(int i = 1; i < m; i++) {
+// 			if(matrix[i][0] == 0) {
+// 				row = 0;
+// 				break;
 // 			}
 // 		}
-// 	}
-// 	for(int i = 0; i < m; i++) {
-// 		if(row[i] == false) {
-// 			for(int j = 0; j < n; j++)
-// 				matrix[i][j] = 0;
-// 		}
-// 	}
-// 	for(int i = 0; i < n; i++) {
-// 		if(col[i] == false) {
-// 			for(int j = 0; j < m; j++)
-// 				matrix[j][i] = 0;
+// 		for(int j = 1; j < n; j++) {
+// 			if(matrix[0][j] == 0) {
+// 				col = 0;
+// 				break;
+// 			}
 // 		}
 // 	}
 // }
 
-void setZeroes(vector<vector<int> >& matrix) {
-	if(matrix.size() <= 0 || matrix[0].size() <= 0)
-		return ;
-	int m = matrix.size();
-	int n = matrix[0].size();
-	int row;
-	int col;
-	if(matrix[0][0] == 0) {
-		row = 0;
-		col = 0;
-	} else {
-		for(int i = 1; i < m; i++) {
-			if(matrix[i][0] == 0) {
-				row = 0;
-				break;
-			}
-		}
-		for(int j = 1; j < n; j++) {
-			if(matrix[0][j] == 0) {
-				col = 0;
-				break;
-			}
-		}
-	}
-}
+// int main() {
+// 	vector<int> digits;
+// 	digits.push_back(1);
+// 	digits.push_back(2);
+// 	digits.push_back(3);
+// 	vector<int> result = plusOne(digits);
+// 	printVec(result);
+// 	return 0;
+// }
 
-int main() {
-	vector<int> digits;
-	digits.push_back(1);
-	digits.push_back(2);
-	digits.push_back(3);
-	vector<int> result = plusOne(digits);
-	printVec(result);
-	return 0;
-}
+//Search a 2D Matrix
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// void printVec(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < size; i++) {
+// 			cout<<nums[i]<<" ";
+// 		}
+// 	}
+// 	cout<<endl;
+// }
+
+// //
+// bool searchMatrix(vector<vector<int> >& matrix, int target) {
+// 	if(matrix.size() <= 0 || matrix[0].size()<= 0)
+// 		return false;
+// 	//行 row
+// 	int m = matrix.size();
+// 	//列 col
+// 	int n = matrix[0].size();
+// 	int rowL = 0;
+// 	int rowR = m-1;
+// 	int rowM = 0;
+// 	int colL = 0;
+// 	int colR = n-1;
+// 	int colM = 0;
+// 	while(rowL <= rowR && colL <= colR) {
+// 		rowM = rowL + (rowR - rowL) / 2;
+// 		colM = colL + (colR - colL) / 2;
+// 		if(matrix[rowM][colM] == target) {
+// 			return true;
+// 		} else if(matrix[rowM][colM] < target) {
+// 			rowL = rowM + 1;
+// 			colL = colM + 1;
+// 		} else {
+// 			rowR = rowM - 1;
+// 			colR = colM - 1;
+// 		}
+// 		// rowM = rowL + (rowR - rowL) / 2;
+// 		// if(matrix[rowM][colM] == target)
+// 		// 	return true;
+// 		// else if(matrix[rowM][colM] < target) {
+// 		// 	rowL = rowM + 1;
+// 		// } else {
+// 		// 	rowR = rowM - 1;
+// 		// }
+// 		// colM = colL + (colR - colL) / 2;
+// 		// if(matrix[rowM][colM] == target) {
+// 		// 	return true;
+// 		// } else if(matrix[rowM][colM] < target) {
+// 		// 	colL = colM + 1;
+// 		// } else {
+// 		// 	colR = colM - 1;
+// 		// }
+// 	}
+// 	return false;
+// }
+
+// int main() {
+// 	vector<vector<int> > matrix;
+// 	vector<int> tmp1;
+// 	tmp1.push_back(1);
+// 	tmp1.push_back(3);
+// 	tmp1.push_back(5);
+// 	tmp1.push_back(7);
+// 	vector<int> tmp2;
+// 	tmp2.push_back(10);
+// 	tmp2.push_back(11);
+// 	tmp2.push_back(16);
+// 	tmp2.push_back(20);
+// 	vector<int> tmp3;
+// 	tmp3.push_back(23);
+// 	tmp3.push_back(30);
+// 	tmp3.push_back(34);
+// 	tmp3.push_back(50);
+// 	matrix.push_back(tmp1);
+// 	matrix.push_back(tmp2);
+// 	matrix.push_back(tmp3);
+// 	int target = 3;
+// 	bool result = searchMatrix(matrix, target);
+// 	if(result)
+// 		cout<<"find target"<<endl;
+// 	else
+// 		cout<<"not find target"<<endl;
+// 	return 0;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
