@@ -1695,68 +1695,97 @@
 // }
 
 // //这种方法使用O(m+n)额外的空间，因此还有继续优化的空间
-// // void setZeroes(vector<vector<int> >& matrix) {
-// // 	if(matrix.size() <= 0 || matrix[0].size() <= 0)
-// // 		return ;
-// // 	int m = matrix.size();
-// // 	int n = matrix[0].size();
-// // 	vector<bool> row(m, true);
-// // 	vector<bool> col(n, true);
-// // 	for(int i = 0; i < m; i++) {
-// // 		for(int j = 0; j < n; j++) {
-// // 			if(matrix[i][j] == 0) {
-// // 				row[i] = false;
-// // 				col[j] = false;
-// // 			}
-// // 		}
-// // 	}
-// // 	for(int i = 0; i < m; i++) {
-// // 		if(row[i] == false) {
-// // 			for(int j = 0; j < n; j++)
-// // 				matrix[i][j] = 0;
-// // 		}
-// // 	}
-// // 	for(int i = 0; i < n; i++) {
-// // 		if(col[i] == false) {
-// // 			for(int j = 0; j < m; j++)
-// // 				matrix[j][i] = 0;
-// // 		}
-// // 	}
-// // }
-
 // void setZeroes(vector<vector<int> >& matrix) {
 // 	if(matrix.size() <= 0 || matrix[0].size() <= 0)
 // 		return ;
 // 	int m = matrix.size();
 // 	int n = matrix[0].size();
-// 	int row;
-// 	int col;
-// 	if(matrix[0][0] == 0) {
-// 		row = 0;
-// 		col = 0;
-// 	} else {
-// 		for(int i = 1; i < m; i++) {
-// 			if(matrix[i][0] == 0) {
-// 				row = 0;
-// 				break;
+// 	vector<bool> row(m, true);
+// 	vector<bool> col(n, true);
+// 	for(int i = 0; i < m; i++) {
+// 		for(int j = 0; j < n; j++) {
+// 			if(matrix[i][j] == 0) {
+// 				row[i] = false;
+// 				col[j] = false;
 // 			}
 // 		}
-// 		for(int j = 1; j < n; j++) {
-// 			if(matrix[0][j] == 0) {
-// 				col = 0;
-// 				break;
-// 			}
+// 	}
+// 	for(int i = 0; i < m; i++) {
+// 		if(row[i] == false) {
+// 			for(int j = 0; j < n; j++)
+// 				matrix[i][j] = 0;
+// 		}
+// 	}
+// 	for(int i = 0; i < n; i++) {
+// 		if(col[i] == false) {
+// 			for(int j = 0; j < m; j++)
+// 				matrix[j][i] = 0;
 // 		}
 // 	}
 // }
 
+// //这种方法并没有使用额外的空间，只是复用了第0行跟第0列的空间
+// //不过对于由于matrix[0][0]只能表示一行或者是一列，因此需要额外申请空间来表示第0行跟第0列
+// void setZeroes(vector<vector<int> >& matrix) {
+// 	if(matrix.size() <= 0 || matrix[0].size() <= 0)
+// 		return ;
+// 	int m = matrix.size();
+// 	int n = matrix[0].size();
+// 	//代表第0行
+// 	int row;
+// 	//代表第0列
+// 	int col;
+// 	for(int i = 0; i < m; i++) {
+// 		if(matrix[i][0] == 0) {
+// 			col = 0;
+// 			break;
+// 		}
+// 	}
+
+// 	for(int j = 0; j < n; j++) {
+// 		if(matrix[0][j] == 0) {
+// 			row = 0;
+// 			break;
+// 		}
+// 	}
+
+// 	for(int i = 1; i < m; i++) {
+// 		for(int j = 1; j < n; j++) {
+// 			if(matrix[i][j] == 0) {
+// 				matrix[0][j] = 0;
+// 				matrix[i][0] = 0;
+// 			}
+// 		}
+// 	}
+// 	for(int i = 1; i < m; i++) {
+// 		if(matrix[i][0] == 0) {
+// 			for(int j = 1; j < n; j++)
+// 				matrix[i][j] = 0;
+// 		}
+// 	}
+// 	for(int i = 1; i < n; i++) {
+// 		if(matrix[0][i] == 0) {
+// 			for(int j = 1; j < m; j++)
+// 				matrix[j][i] = 0;
+// 		}
+// 	}
+// 	if(row == 0) {
+// 		for(int i = 0; i < n; i++)
+// 			matrix[0][i] = 0;
+// 	}
+// 	if(col == 0) {
+// 		for(int i = 0; i < m; i++)
+// 			matrix[i][0] = 0;
+// 	}
+// }
+
 // int main() {
-// 	vector<int> digits;
-// 	digits.push_back(1);
-// 	digits.push_back(2);
-// 	digits.push_back(3);
-// 	vector<int> result = plusOne(digits);
-// 	printVec(result);
+// 	// vector<int> digits;
+// 	// digits.push_back(1);
+// 	// digits.push_back(2);
+// 	// digits.push_back(3);
+// 	// vector<int> result = plusOne(digits);
+// 	// printVec(result);
 // 	return 0;
 // }
 
@@ -1778,7 +1807,8 @@
 // 	cout<<endl;
 // }
 
-// //
+// //刚开始没有看清这道题第二条性质，也就是每一行的第一个数要比上一行的第二个数大，只是简单以为行有序，列有序
+// //因此没有在使用二分查找的方法时，想的比较复杂
 // bool searchMatrix(vector<vector<int> >& matrix, int target) {
 // 	if(matrix.size() <= 0 || matrix[0].size()<= 0)
 // 		return false;
@@ -1786,40 +1816,18 @@
 // 	int m = matrix.size();
 // 	//列 col
 // 	int n = matrix[0].size();
-// 	int rowL = 0;
-// 	int rowR = m-1;
-// 	int rowM = 0;
-// 	int colL = 0;
-// 	int colR = n-1;
-// 	int colM = 0;
-// 	while(rowL <= rowR && colL <= colR) {
-// 		rowM = rowL + (rowR - rowL) / 2;
-// 		colM = colL + (colR - colL) / 2;
-// 		if(matrix[rowM][colM] == target) {
+// 	int low = 0;
+// 	int high = m * n - 1;
+// 	int mid;
+// 	while(low <= high) {
+// 		mid = low + (high - low) / 2;
+// 		if(matrix[mid / n][mid % n] == target) {
 // 			return true;
-// 		} else if(matrix[rowM][colM] < target) {
-// 			rowL = rowM + 1;
-// 			colL = colM + 1;
+// 		} else if(matrix[mid / n][mid % n] < target) {
+// 			low = mid + 1;
 // 		} else {
-// 			rowR = rowM - 1;
-// 			colR = colM - 1;
+// 			high  = mid - 1;
 // 		}
-// 		// rowM = rowL + (rowR - rowL) / 2;
-// 		// if(matrix[rowM][colM] == target)
-// 		// 	return true;
-// 		// else if(matrix[rowM][colM] < target) {
-// 		// 	rowL = rowM + 1;
-// 		// } else {
-// 		// 	rowR = rowM - 1;
-// 		// }
-// 		// colM = colL + (colR - colL) / 2;
-// 		// if(matrix[rowM][colM] == target) {
-// 		// 	return true;
-// 		// } else if(matrix[rowM][colM] < target) {
-// 		// 	colL = colM + 1;
-// 		// } else {
-// 		// 	colR = colM - 1;
-// 		// }
 // 	}
 // 	return false;
 // }
@@ -1854,15 +1862,4 @@
 // }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+//Sort Colors
