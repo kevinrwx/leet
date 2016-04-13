@@ -1863,56 +1863,56 @@
 
 
 //Sort Colors
-#include <iostream>
-#include <vector>
+// #include <iostream>
+// #include <vector>
 
-using namespace std;
+// using namespace std;
 
-void printVec(vector<int>& nums) {
-	int size = nums.size();
-	if(size <= 0)
-		cout<<"empty vector";
-	else {
-		for(int i = 0; i < size; i++) {
-			cout<<nums[i]<<" ";
-		}
-	}
-	cout<<endl;
-}
+// void printVec(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < size; i++) {
+// 			cout<<nums[i]<<" ";
+// 		}
+// 	}
+// 	cout<<endl;
+// }
 
-//这是采用基数排序的思路解决的，其实对于位数比较少的情况，可以不采用基数排序的方法
-void sortColors(vector<int>& nums) {
-	int size = nums.size();
-	if(size <= 1)
-		return ;
-	vector<int> count(3, 0);
-	for(int i = 0; i < size; i++) {
-		count[nums[i]]++;
-	}
-	for(int i = 1; i < count.size(); i++)
-		count[i] += count[i-1];
-	vector<int> tmp(size);
-	for(int i = size-1; i >= 0; i--) {
-		tmp[count[nums[i]] - 1] = nums[i];
-		count[nums[i]]--;
-	}
-	for(int i = 0; i < size; i++)
-		nums[i] = tmp[i];
-}
+// //这是采用基数排序的思路解决的，其实对于位数比较少的情况，可以不采用基数排序的方法
+// void sortColors(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 1)
+// 		return ;
+// 	vector<int> count(3, 0);
+// 	for(int i = 0; i < size; i++) {
+// 		count[nums[i]]++;
+// 	}
+// 	for(int i = 1; i < count.size(); i++)
+// 		count[i] += count[i-1];
+// 	vector<int> tmp(size);
+// 	for(int i = size-1; i >= 0; i--) {
+// 		tmp[count[nums[i]] - 1] = nums[i];
+// 		count[nums[i]]--;
+// 	}
+// 	for(int i = 0; i < size; i++)
+// 		nums[i] = tmp[i];
+// }
 
-int main() {
-	vector<int> nums;
-	nums.push_back(1);
-	nums.push_back(2);
-	nums.push_back(2);
-	nums.push_back(1);
-	nums.push_back(0);
-	nums.push_back(0);
-	printVec(nums);
-	sortColors(nums);
-	printVec(nums);
-	return 0;
-}
+// int main() {
+// 	vector<int> nums;
+// 	nums.push_back(1);
+// 	nums.push_back(2);
+// 	nums.push_back(2);
+// 	nums.push_back(1);
+// 	nums.push_back(0);
+// 	nums.push_back(0);
+// 	printVec(nums);
+// 	sortColors(nums);
+// 	printVec(nums);
+// 	return 0;
+// }
 
 
 
