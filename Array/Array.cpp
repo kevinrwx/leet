@@ -1028,11 +1028,41 @@
 // }
 
 // int jump(vector<int>& nums) {
-// 	//
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		return 0;
+// 	int step = 0;
+// 	int i = 0;
+// 	int j = 0;
+// 	while(i < size) {
+// 		if(i+nums[i] >= size-1) {
+// 			step++;
+// 			break;
+// 		}
+// 		int maxStep = 0;
+// 		int id;
+// 		for(j = i+1; j <= i+nums[i]; j++) {
+// 			if(maxStep < nums[j]) {
+// 				maxStep = nums[j];
+// 				id = j;
+// 			}
+// 		}
+// 		i = id;
+// 		step++;
+// 	}
+// 	return step;
 // }
 
 // int main() {
-// 	//
+// 	vector<int> nums;
+// 	nums.push_back(2);
+// 	// nums.push_back(3);
+// 	// nums.push_back(1);
+// 	// nums.push_back(1);
+// 	// nums.push_back(4);
+// 	int result = jump(nums);
+// 	cout<<result<<endl;
+// 	return 0;
 // }
 
 
@@ -1863,56 +1893,215 @@
 
 
 //Sort Colors
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// void printVec(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < size; i++) {
+// 			cout<<nums[i]<<" ";
+// 		}
+// 	}
+// 	cout<<endl;
+// }
+
+// //这是采用基数排序的思路解决的，其实对于位数比较少的情况，可以不采用基数排序的方法
+// void sortColors(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 1)
+// 		return ;
+// 	vector<int> count(3, 0);
+// 	for(int i = 0; i < size; i++) {
+// 		count[nums[i]]++;
+// 	}
+// 	for(int i = 1; i < count.size(); i++)
+// 		count[i] += count[i-1];
+// 	vector<int> tmp(size);
+// 	for(int i = size-1; i >= 0; i--) {
+// 		tmp[count[nums[i]] - 1] = nums[i];
+// 		count[nums[i]]--;
+// 	}
+// 	for(int i = 0; i < size; i++)
+// 		nums[i] = tmp[i];
+// }
+
+// int main() {
+// 	vector<int> nums;
+// 	nums.push_back(1);
+// 	nums.push_back(2);
+// 	nums.push_back(2);
+// 	nums.push_back(1);
+// 	nums.push_back(0);
+// 	nums.push_back(0);
+// 	printVec(nums);
+// 	sortColors(nums);
+// 	printVec(nums);
+// 	return 0;
+// }
+
+//Subsets
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// void printVec(vector<vector<int> >& nums) {
+// 	if(nums.size() <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < nums.size(); i++) {
+// 			if(nums[i].size() <= 0)
+// 				cout<<"empty"<<endl;
+// 			else {
+// 				for(int j = 0; j < nums[i].size(); j++)
+// 					cout<<nums[i][j]<<" ";
+// 				cout<<endl;
+// 			}
+// 		}
+// 	}
+// }
+
+// //这段代码好奇怪啊，在sublime text上不能跑通，但是提交却能通过，我觉得应该是sublime text的原因
+// void backtrack(vector<vector<int> >& result, vector<int>& nums, vector<bool>& flag, vector<bool>& tmp) {
+// 	if(flag.size() == nums.size()) {
+// 		vector<int> tmp;
+// 		for(int i = 0; i < flag.size(); i++) {
+// 			if(flag[i] == true) {
+// 				tmp.push_back(nums[i]);
+// 			}
+// 		}
+// 		result.push_back(tmp);
+// 	} else {
+// 		for(int j = 0; j < tmp.size(); j++) {
+// 			flag.push_back(tmp[j]);
+// 			backtrack(result, nums, flag, tmp);
+// 			flag.pop_back();
+// 		}
+// 	}
+// }
+
+// vector<vector<int> > subsets(vector<int>& nums) {
+// 	int size = nums.size();
+// 	vector<vector<int> > result;
+// 	if(size <= 0) {
+// 		vector<int> tmp;
+// 		result.push_back(tmp);
+// 		return result;
+// 	}
+// 	vector<bool> flag;
+// 	vector<bool> tmp;
+// 	tmp.push_back(true);
+// 	tmp.push_back(false);
+// 	backtrack(result, nums, flag, tmp);
+// 	return result;
+// }
+
+// //第二种方法，这种方法并没有完全按照backtrack公式的方式，说实话，这种思路也挺独特的，但是由于不能推广，所以只用了解
+// vector<vector<int> > subsets(vector<int> &nums) {
+// 	int length = nums.size();
+// 	vector<vector<int> > results;
+// 	if(length == 0)
+// 		return results;
+// 	vector<int> tmp;
+// 	results.push_back(tmp);
+// 	for(int i = 0; i < length; i++) {
+// 		vector<vector<int> > tmpRes;
+// 		for(int j = 0; j < results.size(); j++) {
+// 			tmp = results[j];
+// 			tmp.push_back(nums[i]);
+// 			sort(tmp.begin(), tmp.end());
+// 			tmpRes.push_back(tmp);
+// 		}
+// 		for(int k = 0; k < tmpRes.size(); k++) {
+// 			results.push_back(tmpRes[k]);
+// 		}
+// 	}
+// 	return results;
+// }
+
+
+// int main() {
+// 	vector<int> nums;
+// 	nums.push_back(1);
+// 	nums.push_back(2);
+// 	nums.push_back(3);
+// 	vector<vector<int> > result = subsets(nums);
+// 	printVec(result);
+// 	return 0;
+// }
+
+
+//Word Search
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
-void printVec(vector<int>& nums) {
-	int size = nums.size();
-	if(size <= 0)
+void printVec(vector<vector<int> >& nums) {
+	if(nums.size() <= 0)
 		cout<<"empty vector";
 	else {
-		for(int i = 0; i < size; i++) {
-			cout<<nums[i]<<" ";
+		for(int i = 0; i < nums.size(); i++) {
+			if(nums[i].size() <= 0)
+				cout<<"empty"<<endl;
+			else {
+				for(int j = 0; j < nums[i].size(); j++)
+					cout<<nums[i][j]<<" ";
+				cout<<endl;
+			}
 		}
 	}
-	cout<<endl;
 }
 
-//这是采用基数排序的思路解决的，其实对于位数比较少的情况，可以不采用基数排序的方法
-void sortColors(vector<int>& nums) {
-	int size = nums.size();
-	if(size <= 1)
-		return ;
-	vector<int> count(3, 0);
-	for(int i = 0; i < size; i++) {
-		count[nums[i]]++;
-	}
-	for(int i = 1; i < count.size(); i++)
-		count[i] += count[i-1];
-	vector<int> tmp(size);
-	for(int i = size-1; i >= 0; i--) {
-		tmp[count[nums[i]] - 1] = nums[i];
-		count[nums[i]]--;
-	}
-	for(int i = 0; i < size; i++)
-		nums[i] = tmp[i];
+bool exist(vector<vector<char> >& board, string word) {
+	int length = word.length();
+	if(length <= 0 || board.size() <= 0 || board[0].size() <= 0)
+		return false;
+	//
 }
+
 
 int main() {
-	vector<int> nums;
-	nums.push_back(1);
-	nums.push_back(2);
-	nums.push_back(2);
-	nums.push_back(1);
-	nums.push_back(0);
-	nums.push_back(0);
-	printVec(nums);
-	sortColors(nums);
-	printVec(nums);
+	vector<vector<char> > board;
+
+	vector<char> tmp1;
+	tmp1.push_back('A');
+	tmp1.push_back('B');
+	tmp1.push_back('C');
+	tmp1.push_back('E');
+
+	vector<char> tmp2;
+	tmp2.push_back('S');
+	tmp2.push_back('F');
+	tmp2.push_back('C');
+	tmp2.push_back('S');
+
+	vector<char> tmp3;
+	tmp3.push_back('A');
+	tmp3.push_back('D');
+	tmp3.push_back('E');
+	tmp3.push_back('E');
+
+	board.push_back(tmp1);
+	board.push_back(tmp2);
+	board.push_back(tmp3);
+
+	string str = "";
+	bool isExist = exist(board, str);
+	if(isExist)
+		cout<<"exist"<<endl;
+	else
+		cout<<"not exist"<<endl;
 	return 0;
 }
+
+
+
 
 
 
