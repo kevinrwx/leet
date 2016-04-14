@@ -2058,17 +2058,52 @@ void printVec(vector<vector<int> >& nums) {
 	}
 }
 
-void backtrack() {
-	//
+vector<pair<int, int> > getCandinates(vector<vector<char> >& board, vector<vector<bool> >& flag, int x, int y, char ch) {
+	vector<pair<int, int> > candinates;
+	int m = board.size();
+	int n = board[0].size();
+	if(x-1 >= 0 && flag[x-1][y] == false && board[x-1][y] == ch)
+		candinates.push_back(make_pair(x-1, y));
+	if(x+1 < m && flag[x+1][y] == false && board[x+1][y] == ch)
+		candinates.push_back(make_pair(x+1, y));
+	if(y-1 >= 0 && flag[x][y-1] == false && board[x][y-1] == ch) 
+		candinates.push_back(make_pair(x, y-1));
+	if(y+1 < n && flag[x][y+1] == false && board[x][y+1] == ch)
+		candinates.push_back(make_pair(x, y+1));
+	return candinates;
+}
+
+void backtrack(vector<vector<char> >& board, vector<vector<bool> >& flag, vector<pair<int, int> >& candinates , int index, string word, bool result) {
+	if(index == word.length()) {
+		result = true;
+		return ;
+	} else {
+		for(int i = 0; i < candinates.size(); i++) {
+			vector<pair<int, int> > tmp = getCandinates(board, flag, candinates[i].first, candinates[i].second, word[index+1]);
+			if(tmp.size() > 0) {
+				backtrack(board, flag, tmp, index+1, word, result);
+			}
+		}
+	}
 }
 
 bool exist(vector<vector<char> >& board, string word) {
 	int length = word.length();
 	if(length <= 0 || board.size() <= 0 || board[0].size() <= 0)
 		return false;
-	//
+	int m = board.size();
+	int n = board[0].size();
+	vector<vector<bool> > flag(m, vector<bool>(n, false));
+	bool result = false;
+	vector<pair<int, int> > candinates;
+	for(int i = 0; i < m; i++) {
+		for(int j = 0; j < n; j++) {
+			if(board[i][j] == word[0]) {
+				candinates.push_back(make_pair(i, j));
+			}
+		}
+	}
 }
-
 
 int main() {
 	vector<vector<char> > board;
