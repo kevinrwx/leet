@@ -2058,6 +2058,10 @@ void printVec(vector<vector<int> >& nums) {
 	}
 }
 
+void backtrack() {
+	//
+}
+
 bool exist(vector<vector<char> >& board, string word) {
 	int length = word.length();
 	if(length <= 0 || board.size() <= 0 || board[0].size() <= 0)
@@ -2099,10 +2103,6 @@ int main() {
 		cout<<"not exist"<<endl;
 	return 0;
 }
-
-
-
-
 
 
 
