@@ -2036,113 +2036,167 @@
 // }
 
 
-//Word Search
+// //Word Search
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// vector<pair<int, int> > getCandinates(vector<vector<char> >& board, vector<vector<bool> >& flag, int x, int y, char ch) {
+// 	vector<pair<int, int> > candinates;
+// 	int m = board.size();
+// 	int n = board[0].size();
+// 	if(x-1 >= 0 && flag[x-1][y] == false && board[x-1][y] == ch)
+// 		candinates.push_back(make_pair(x-1, y));
+// 	if(x+1 < m && flag[x+1][y] == false && board[x+1][y] == ch)
+// 		candinates.push_back(make_pair(x+1, y));
+// 	if(y-1 >= 0 && flag[x][y-1] == false && board[x][y-1] == ch) 
+// 		candinates.push_back(make_pair(x, y-1));
+// 	if(y+1 < n && flag[x][y+1] == false && board[x][y+1] == ch)
+// 		candinates.push_back(make_pair(x, y+1));
+// 	return candinates;
+// }
+
+// //我发现自己第二次做这道题目时，还是继续延续了自己第一次的思路,但是由于少了提前结束部分的代码，导致这个答案
+// //刚开始时并不能过最大测试用例
+// void backtrack(vector<vector<char> >& board, vector<vector<bool> >& flag, vector<pair<int, int> >& candinates , int index, string word, bool* result) {
+// 	if(index == word.length()-1) {
+// 		*result = true;
+// 		return ;
+// 	} else {
+// 		for(int i = 0; i < candinates.size(); i++) {
+// 			vector<pair<int, int> > tmp = getCandinates(board, flag, candinates[i].first, candinates[i].second, word[index+1]);
+// 			if(tmp.size() > 0) {
+// 				flag[candinates[i].first][candinates[i].second] = true;
+// 				backtrack(board, flag, tmp, index+1, word, result);
+// 				//需要加上这个条件，即如果找到结果以后，就提前跳出循环，否则过不了最大测试用例
+// 				if(*result == true)
+// 					break;
+// 				flag[candinates[i].first][candinates[i].second] = false;
+// 			}
+// 		}
+// 	}
+// }
+
+// bool exist(vector<vector<char> >& board, string word) {
+// 	int length = word.length();
+// 	if(length <= 0 || board.size() <= 0 || board[0].size() <= 0)
+// 		return false;
+// 	int m = board.size();
+// 	int n = board[0].size();
+// 	vector<vector<bool> > flag(m, vector<bool>(n, false));
+// 	bool result = false;
+// 	vector<pair<int, int> > candinates;
+// 	for(int i = 0; i < m; i++) {
+// 		for(int j = 0; j < n; j++) {
+// 			if(board[i][j] == word[0]) {
+// 				candinates.push_back(make_pair(i, j));
+// 			}
+// 		}
+// 	}
+// 	if(candinates.size() <= 0)
+// 		return false;
+// 	backtrack(board, flag, candinates, 0, word, &result);
+// 	return result;
+// }
+
+// int main() {
+// 	vector<vector<char> > board;
+
+// 	vector<char> tmp1;
+// 	tmp1.push_back('A');
+// 	tmp1.push_back('B');
+// 	tmp1.push_back('C');
+// 	tmp1.push_back('E');
+
+// 	vector<char> tmp2;
+// 	tmp2.push_back('S');
+// 	tmp2.push_back('F');
+// 	tmp2.push_back('C');
+// 	tmp2.push_back('S');
+
+// 	vector<char> tmp3;
+// 	tmp3.push_back('A');
+// 	tmp3.push_back('D');
+// 	tmp3.push_back('E');
+// 	tmp3.push_back('E');
+	
+
+// 	board.push_back(tmp1);
+// 	board.push_back(tmp2);
+// 	board.push_back(tmp3);
+
+// 	string str = "AAB";
+// 	bool isExist = exist(board, str);
+// 	if(isExist)
+// 		cout<<"exist"<<endl;
+// 	else
+// 		cout<<"not exist"<<endl;
+// 	return 0;
+// }
+
+
+// //Remove Duplicates from Sorted Array II
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// //这道题是双指针的题目，每次循环时要先统计当前元素的个数，然后将前两个元素复制给后一个指针
+// //代码写的比较烂，不想改了，能理解意思就行
+// int removeDuplicates(vector<int>& nums) {
+// 	int len = nums.size();
+// 	if(len <= 2)
+// 		return len;
+// 	int index = 0;
+// 	int i = 0;
+// 	while(i < len) {
+// 		int j = i;
+// 		int count = 0;
+// 		while(j < len && nums[j] == nums[i]) {
+// 			j++;
+// 			count++;
+// 		}
+// 		if(count <= 2) {
+// 			for(int k = i; k < j; k++)
+// 				nums[index++] = nums[k];
+// 		} else {
+// 			for(int k = i; k < i+2; k++)
+// 				nums[index++] = nums[k];
+// 		}
+// 		i = j;
+// 	}
+// 	return index;
+// }
+
+// int main() {
+// 	vector<int> nums;
+// 	nums.push_back(1);
+// 	nums.push_back(1);
+// 	nums.push_back(1);
+// 	nums.push_back(2);
+// 	nums.push_back(2);
+// 	nums.push_back(3);
+
+// 	int result = removeDuplicates(nums);
+// 	cout<<result<<endl;
+// 	return 0;
+// }
+
+
+//Search in Rotated Sorted Array II
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
-void printVec(vector<vector<int> >& nums) {
-	if(nums.size() <= 0)
-		cout<<"empty vector";
-	else {
-		for(int i = 0; i < nums.size(); i++) {
-			if(nums[i].size() <= 0)
-				cout<<"empty"<<endl;
-			else {
-				for(int j = 0; j < nums[i].size(); j++)
-					cout<<nums[i][j]<<" ";
-				cout<<endl;
-			}
-		}
-	}
-}
-
-vector<pair<int, int> > getCandinates(vector<vector<char> >& board, vector<vector<bool> >& flag, int x, int y, char ch) {
-	vector<pair<int, int> > candinates;
-	int m = board.size();
-	int n = board[0].size();
-	if(x-1 >= 0 && flag[x-1][y] == false && board[x-1][y] == ch)
-		candinates.push_back(make_pair(x-1, y));
-	if(x+1 < m && flag[x+1][y] == false && board[x+1][y] == ch)
-		candinates.push_back(make_pair(x+1, y));
-	if(y-1 >= 0 && flag[x][y-1] == false && board[x][y-1] == ch) 
-		candinates.push_back(make_pair(x, y-1));
-	if(y+1 < n && flag[x][y+1] == false && board[x][y+1] == ch)
-		candinates.push_back(make_pair(x, y+1));
-	return candinates;
-}
-
-void backtrack(vector<vector<char> >& board, vector<vector<bool> >& flag, vector<pair<int, int> >& candinates , int index, string word, bool result) {
-	if(index == word.length()) {
-		result = true;
-		return ;
-	} else {
-		for(int i = 0; i < candinates.size(); i++) {
-			vector<pair<int, int> > tmp = getCandinates(board, flag, candinates[i].first, candinates[i].second, word[index+1]);
-			if(tmp.size() > 0) {
-				backtrack(board, flag, tmp, index+1, word, result);
-			}
-		}
-	}
-}
-
-bool exist(vector<vector<char> >& board, string word) {
-	int length = word.length();
-	if(length <= 0 || board.size() <= 0 || board[0].size() <= 0)
-		return false;
-	int m = board.size();
-	int n = board[0].size();
-	vector<vector<bool> > flag(m, vector<bool>(n, false));
-	bool result = false;
-	vector<pair<int, int> > candinates;
-	for(int i = 0; i < m; i++) {
-		for(int j = 0; j < n; j++) {
-			if(board[i][j] == word[0]) {
-				candinates.push_back(make_pair(i, j));
-			}
-		}
-	}
+bool search(vector<int>& nums, int target) {
+	//
 }
 
 int main() {
-	vector<vector<char> > board;
-
-	vector<char> tmp1;
-	tmp1.push_back('A');
-	tmp1.push_back('B');
-	tmp1.push_back('C');
-	tmp1.push_back('E');
-
-	vector<char> tmp2;
-	tmp2.push_back('S');
-	tmp2.push_back('F');
-	tmp2.push_back('C');
-	tmp2.push_back('S');
-
-	vector<char> tmp3;
-	tmp3.push_back('A');
-	tmp3.push_back('D');
-	tmp3.push_back('E');
-	tmp3.push_back('E');
-
-	board.push_back(tmp1);
-	board.push_back(tmp2);
-	board.push_back(tmp3);
-
-	string str = "";
-	bool isExist = exist(board, str);
-	if(isExist)
-		cout<<"exist"<<endl;
-	else
-		cout<<"not exist"<<endl;
-	return 0;
+	//
 }
-
-
-
-
-
 
 
 
