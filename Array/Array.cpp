@@ -1027,23 +1027,30 @@
 // 	cout<<endl;
 // }
 
+// //这道题果真还是采用了我第一次的思想，就是在当前每一步能跳的最远距离中，根据下一步能跳的最远的距离来决定当前
+// //这步要跳到哪里，所以主要根据cur、next两个变量来决定啥时候更新步数
 // int jump(vector<int>& nums) {
 // 	int size = nums.size();
-// 	if(size <= 0)
+// 	//由于只有一个元素时，系统的结果是0步，所以就在前面多加了这一步的判断
+// 	if(size <= 1)
 // 		return 0;
 // 	int step = 0;
 // 	int i = 0;
-// 	int j = 0;
+// 	//当前步能跳的最远距离
+// 	int cur;
+// 	//下一步能跳的最远距离
+// 	int next;
 // 	while(i < size) {
-// 		if(i+nums[i] >= size-1) {
+// 		cur = i + nums[i];
+// 		if(cur >= size-1) {
 // 			step++;
 // 			break;
 // 		}
-// 		int maxStep = 0;
-// 		int id;
-// 		for(j = i+1; j <= i+nums[i]; j++) {
-// 			if(maxStep < nums[j]) {
-// 				maxStep = nums[j];
+// 		next = 0;
+// 		int id = 0;
+// 		for(int j = i+1; j <= cur; j++) {
+// 			if(next < j + nums[j]) {
+// 				next = j + nums[j];
 // 				id = j;
 // 			}
 // 		}
@@ -1056,10 +1063,11 @@
 // int main() {
 // 	vector<int> nums;
 // 	nums.push_back(2);
-// 	// nums.push_back(3);
-// 	// nums.push_back(1);
-// 	// nums.push_back(1);
-// 	// nums.push_back(4);
+// 	nums.push_back(3);
+// 	nums.push_back(1);
+// 	nums.push_back(1);
+// 	nums.push_back(4);
+
 // 	int result = jump(nums);
 // 	cout<<result<<endl;
 // 	return 0;
@@ -1966,7 +1974,7 @@
 // 	}
 // }
 
-// //这段代码好奇怪啊，在sublime text上不能跑通，但是提交却能通过，我觉得应该是sublime text的原因
+// //这种方法比较传统，但是跟回溯法的公式很贴切，我觉得是解决子集问题的一个好方法
 // void backtrack(vector<vector<int> >& result, vector<int>& nums, vector<bool>& flag, vector<bool>& tmp) {
 // 	if(flag.size() == nums.size()) {
 // 		vector<int> tmp;
@@ -2001,7 +2009,33 @@
 // 	return result;
 // }
 
-// //第二种方法，这种方法并没有完全按照backtrack公式的方式，说实话，这种思路也挺独特的，但是由于不能推广，所以只用了解
+//第二种方法，算是回溯法公式的变形吧，比第一种思路要简单一些，这种思路可以很好的处理含有重复元素的子集问题
+// void backtrack(vector<vector<int> >& result, vector<int>& nums, vector<int>& tmp, int k) {
+// 	if(k == nums.size()) {
+// 		return ;
+// 	} else {
+// 		for(int i = k; i < nums.size(); i++) {
+// 			tmp.push_back(nums[i]);
+// 			result.push_back(tmp);
+// 			backtrack(result, nums, tmp, i+1);
+// 			tmp.pop_back();
+// 		}
+// 	}
+// }
+
+// vector<vector<int> > subsets(vector<int>& nums) {
+// 	int size = nums.size();
+// 	vector<vector<int> > result;
+// 	vector<int> tmp;
+// 	result.push_back(tmp);
+// 	if(size <= 0) {
+// 		return result;
+// 	}
+// 	backtrack(result, nums, tmp, 0);
+// 	return result;
+// }
+
+// //第三种方法，这种方法并没有完全按照backtrack公式的方式，说实话，这种思路也挺独特的，但是由于不能推广，所以只用了解
 // vector<vector<int> > subsets(vector<int> &nums) {
 // 	int length = nums.size();
 // 	vector<vector<int> > results;
@@ -2023,7 +2057,6 @@
 // 	}
 // 	return results;
 // }
-
 
 // int main() {
 // 	vector<int> nums;
@@ -2184,29 +2217,320 @@
 // }
 
 
-//Search in Rotated Sorted Array II
+// //Search in Rotated Sorted Array II
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// bool search(vector<int>& nums, int target) {
+// 	//
+// }
+
+// int main() {
+// 	//
+// }
+
+
+//Largest Rectangle in Histogram
+// #include <iostream>
+// #include <vector>
+// #include <stack>
+
+// using namespace std;
+
+// int largestRectangleArea(vector<int>& heights) {
+// 	int len = heights.size();
+// 	if(len <= 0)
+// 		return 0;
+// 	heights.push_back(0);
+// 	stack<int> st;
+// 	int result = 0;
+// 	int i = 0;
+// 	len = heights.size();
+// 	while(i < len) {
+// 		if(st.empty() || heights[st.top()] <= heights[i]) {
+// 			st.push(i++);
+// 		} else {
+// 			int id = st.top();
+// 			st.pop();
+// 			result = max(result, heights[id] * (st.empty() ? i : (i - st.top() - 1)));
+// 		}
+// 	}
+// 	return result;
+// }
+
+// int main() {
+// 	vector<int> heights;
+// 	heights.push_back(2);
+// 	heights.push_back(1);
+// 	heights.push_back(5);
+// 	heights.push_back(6);
+// 	heights.push_back(2);
+// 	heights.push_back(3);
+// 	int result = largestRectangleArea(heights);
+// 	cout<<result<<endl;
+// 	return 0;
+// }
+
+//Maximal Rectangle
+// #include <iostream>
+// #include <vector>
+// #include <stack>
+
+// using namespace std;
+
+// int largestRectangleArea(vector<int>& heights) {
+// 	if(heights.size() <= 0)
+// 		return 0;
+// 	heights.push_back(0);
+// 	int len = heights.size();
+// 	int i = 0;
+// 	int result = 0;
+// 	stack<int> st;
+// 	while(i < len) {
+// 		if(st.empty() || heights[st.top()] <= heights[i])
+// 			st.push(i++);
+// 		else {
+// 			int tmp = st.top();
+// 			st.pop();
+// 			result = max(result, heights[tmp] * (st.empty() ? i : (i - st.top() - 1)));
+// 		}
+// 	}
+// 	return result;
+// }
+
+// int maximalRectangle(vector<vector<char> >& matrix) {
+// 	if(matrix.size() <= 0 || matrix[0].size() <= 0)
+// 		return 0;
+// 	int m = matrix.size();
+// 	int n = matrix[0].size();
+// 	int result = 0;
+// 	vector<vector<int> > tmp(m, vector<int>(n, 0));
+// 	for(int i = 0; i < n; i++) {
+// 		if(matrix[0][i] == '0')
+// 			tmp[0][i] = 0;
+// 		else
+// 			tmp[0][i] = 1;
+// 	}
+// 	for(int i = 1; i < m; i++) {
+// 		for(int j = 0; j < n; j++) {
+// 			if(matrix[i][j] == '0')
+// 				tmp[i][j] = 0;
+// 			else
+// 				tmp[i][j] = tmp[i-1][j] + 1;
+// 		}
+// 	}
+// 	for(int i = 0; i < m; i++) {
+// 		result = max(result, largestRectangleArea(tmp[i]));
+// 	}
+// 	return result;
+// }
+
+// int main() {
+// 	vector<vector<char> > matrix;
+// 	vector<char> tmp1;
+// 	tmp1.push_back('0');
+// 	tmp1.push_back('1');
+// 	tmp1.push_back('0');
+
+// 	vector<char> tmp2;
+// 	tmp2.push_back('1');
+// 	tmp2.push_back('1');
+// 	tmp2.push_back('1');
+
+// 	vector<char> tmp3;
+// 	tmp3.push_back('0');
+// 	tmp3.push_back('1');
+// 	tmp3.push_back('1');
+
+// 	matrix.push_back(tmp1);
+// 	matrix.push_back(tmp2);
+// 	matrix.push_back(tmp3);
+// 	int result = maximalRectangle(matrix);
+
+// 	cout<<result<<endl;
+// 	return 0;
+// }
+
+//Merge Sorted Array
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// //这种方式仍然需要O(m)d的额外空间
+// void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+// 	if(m <= 0) {
+// 		for(int i = 0; i < n; i++)
+// 			nums1[i] = nums2[i];
+// 		return ;
+// 	}
+// 	if(n <= 0) {
+// 		return ;
+// 	}
+// 	vector<int> tmp(m, 0);
+// 	for(int i = 0; i < m; i++)
+// 		tmp[i] = nums1[i];
+// 	int i = 0;
+// 	int j = 0;
+// 	int index = 0;
+// 	while(i < m && j < n) {
+// 		if(tmp[i] <= nums2[j])
+// 			nums1[index++] = tmp[i++];
+// 		else 
+// 			nums1[index++] = nums2[j++];
+// 	}
+// 	while(i < m) {
+// 		nums1[index++] = tmp[i++];
+// 	}
+// 	while(j < n) {
+// 		nums1[index++] = nums2[j++];
+// 	}
+// }
+
+// //这种方法比较合适，从后往前进行遍历，所以并不需要额外的空间，而且代码比较简洁
+// void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+// 	int index = m+n-1;
+// 	int i = m-1;
+// 	int j = n-1;
+// 	while(i >= 0 && j >= 0) {
+// 		if(nums1[i] >= nums2[j])
+// 			nums1[index] = nums1[i--];
+// 		else
+// 			nums1[index] = nums2[j--];
+// 		index--;
+// 	}
+// 	while(i >= 0) {
+// 		nums1[index--] = nums1[i--];
+// 	}
+// 	while(j >= 0) {
+// 		nums1[index--] = nums2[j--];
+// 	}
+// }
+
+
+// int main() {
+// 	vector<int> nums1(10, 0);
+// 	nums1[0] = 1;
+// 	nums1[1] = 2;
+// 	nums1[2] = 4;
+// 	nums1[3] = 5;
+
+
+// 	vector<int> nums2;
+// 	nums2.push_back(3);
+// 	nums2.push_back(6);
+// 	nums2.push_back(7);
+// 	nums2.push_back(8);
+// 	nums2.push_back(9);
+// 	nums2.push_back(10);
+
+// 	merge(nums1, 4, nums2, 6);
+
+// 	for(int i = 0; i < nums1.size(); i++)
+// 		cout<<nums1[i]<<" ";
+// 	cout<<endl;
+// 	return 0;
+// }
+
+//Subsets II
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// void printVec(vector<vector<int> >& nums) {
+// 	if(nums.size() <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < nums.size(); i++) {
+// 			if(nums[i].size() <= 0)
+// 				cout<<"empty"<<endl;
+// 			else {
+// 				for(int j = 0; j < nums[i].size(); j++)
+// 					cout<<nums[i][j]<<" ";
+// 				cout<<endl;
+// 			}
+// 		}
+// 	}
+// }
+
+// //这种方法非常适合记忆，这种方法既仿照了回溯法的公式，但是又有一些小小的变形，非常适合这种有重复元素类型的题目
+// void backtrack(vector<vector<int> >& result, vector<int>& nums, vector<int>& tmp, int index) {
+// 	if(index == nums.size()) {
+// 		return ;
+// 	} else {
+// 		for(int i = index; i < nums.size(); i++) {
+// 			tmp.push_back(nums[i]);
+// 			result.push_back(tmp);
+// 			backtrack(result, nums, tmp, i+1);
+// 			tmp.pop_back();
+// 			//下面这两行代码保证了去除重复元素
+// 			while(i < nums.size()-1 && nums[i] == nums[i+1])
+// 				i++;
+// 		}
+// 	}
+// }
+
+// vector<vector<int> > subsetsWithDup(vector<int>& nums) {
+// 	vector<vector<int> > result;
+// 	vector<int> tmp;
+// 	int len = nums.size();
+// 	result.push_back(tmp);
+// 	if(len <= 0) {
+// 		return result;
+// 	}
+// 	sort(nums.begin(), nums.end());
+// 	backtrack(result, nums, tmp, 0);
+// 	return result;
+
+// }
+
+// int main() {
+// 	vector<int> nums;
+// 	nums.push_back(1);
+// 	nums.push_back(2);
+// 	nums.push_back(2);
+// 	vector<vector<int> > result = subsetsWithDup(nums);
+// 	printVec(result);
+// 	return 0;
+// }
+
+
+//Construct Binary Tree from Preorder and Inorder Traversal
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
-bool search(vector<int>& nums, int target) {
-	//
+struct TreeNode {
+	int val;
+	TreeNode* left;
+	TreeNode* right;
+	TreeNode(int x) : val(x), left(NULL), right{NULL} {}
+};
+
+TreeNode* build(vector<int>& preorder, int pl, int pr, vector<int>& inorder, int il, ir) {
+	if(pl > pr || il > ir)
+		return NULL;
+	TreeNode* root = new TreeNode(preorder[pl]);
+	int index = 0;
+	for(int i = il; i <= ir; i++)
+		if(inorder[i] == preorder[pl])
+			index = i;
+	root->left = build(preorder, pl+1, pl+index-il, inorder, il, index-1);
+	root->right = build(preorder, pr-ir+index+1, pr, inorder, index+1, ir);
+	return root;
+}
+
+TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+	return build(preorder, 0, preorder.siz()-1, inorder, 0, inorder.size()-1);
 }
 
 int main() {
 	//
+	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
