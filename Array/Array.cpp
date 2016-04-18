@@ -2499,38 +2499,245 @@
 
 
 //Construct Binary Tree from Preorder and Inorder Traversal
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// struct TreeNode {
+// 	int val;
+// 	TreeNode* left;
+// 	TreeNode* right;
+// 	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+// };
+
+// void postorder(TreeNode* root) {
+// 	if(root != NULL) {
+// 		postorder(root->left);
+// 		postorder(root->right);
+// 		cout<<root->val<<" ";
+// 	}
+// }
+
+// TreeNode* build(vector<int>& preorder, int pl, int pr, vector<int>& inorder, int il, int ir) {
+// 	if(pl > pr || il > ir)
+// 		return NULL;
+// 	TreeNode* root = new TreeNode(preorder[pl]);
+// 	int index = 0;
+// 	for(int i = il; i <= ir; i++)
+// 		if(inorder[i] == preorder[pl])
+// 			index = i;
+// 	root->left = build(preorder, pl+1, pl+index-il, inorder, il, index-1);
+// 	root->right = build(preorder, pr-ir+index+1, pr, inorder, index+1, ir);
+// 	return root;
+// }
+
+// TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+// 	return build(preorder, 0, preorder.size()-1, inorder, 0, inorder.size()-1);
+// }
+
+// int main() {
+// 	vector<int> preorder;
+// 	preorder.push_back(1);
+// 	preorder.push_back(2);
+// 	preorder.push_back(4);
+// 	preorder.push_back(5);
+// 	preorder.push_back(3);
+// 	preorder.push_back(6);
+// 	preorder.push_back(7);
+
+// 	vector<int> inorder;
+// 	inorder.push_back(4);
+// 	inorder.push_back(2);
+// 	inorder.push_back(5);
+// 	inorder.push_back(1);
+// 	inorder.push_back(6);
+// 	inorder.push_back(3);
+// 	inorder.push_back(7);
+
+// 	TreeNode* root = buildTree(preorder, inorder);
+// 	postorder(root);
+// 	return 0;
+// }
+
+
+//Construct Binary Tree from Inorder and Postorder Traversal
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// struct TreeNode {
+// 	int val;
+// 	TreeNode* left;
+// 	TreeNode* right;
+// 	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+// };
+
+// void preorder(TreeNode* root) {
+// 	if(root != NULL) {
+// 		cout<<root->val<<" ";
+// 		preorder(root->left);
+// 		preorder(root->right);
+// 	}
+// }
+
+// TreeNode* build(vector<int>& inorder, int il, int ir, vector<int>& postorder, int pl, int pr) {
+// 	if(il > ir || pl > pr)
+// 		return NULL;
+// 	TreeNode* root = new TreeNode(postorder[pr]);
+// 	int index = 0;
+// 	for(int i = il; i <= ir; i++)
+// 		if(inorder[i] == postorder[pr])
+// 			index = i;
+// 	root->left = build(inorder, il, index-1, postorder, pl, pl+index-il-1);
+// 	root->right = build(inorder, index+1, ir, postorder, pr-ir+index, pr-1);
+// 	return root;
+// }
+
+// TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+// 	return build(inorder, 0, inorder.size()-1, postorder, 0, postorder.size()-1);
+// }
+
+// int main() {
+// 	vector<int> inorder;
+// 	inorder.push_back(4);
+// 	inorder.push_back(2);
+// 	inorder.push_back(5);
+// 	inorder.push_back(1);
+// 	inorder.push_back(6);
+// 	inorder.push_back(3);
+// 	inorder.push_back(7);
+
+// 	vector<int> postorder;
+// 	postorder.push_back(4);
+// 	postorder.push_back(5);
+// 	postorder.push_back(2);
+// 	postorder.push_back(6);
+// 	postorder.push_back(7);
+// 	postorder.push_back(3);
+// 	postorder.push_back(1);
+
+// 	TreeNode* root = buildTree(inorder, postorder);
+// 	preorder(root);
+// 	return 0;
+// }
+
+//Pascal's Triangle
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// void printVec(vector<vector<int> >& nums) {
+// 	if(nums.size() <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < nums.size(); i++) {
+// 			if(nums[i].size() <= 0)
+// 				cout<<"empty"<<endl;
+// 			else {
+// 				for(int j = 0; j < nums[i].size(); j++)
+// 					cout<<nums[i][j]<<" ";
+// 				cout<<endl;
+// 			}
+// 		}
+// 	}
+// }
+
+// vector<vector<int> > generate(int numRows) {
+// 	vector<vector<int> > result;
+// 	if(numRows <= 0)
+// 		return result;
+// 	else if(numRows == 1) {
+// 		result.push_back(vector<int>(numRows, 1));
+// 		return result;
+// 	} else {
+// 		for(int i = 1; i <= numRows; i++) {
+// 			result.push_back(vector<int>(i, 1));
+// 			if(i > 2) {
+// 				int len = result.size();
+// 				for(int j = 0; j < result[len-2].size()-1; j++) {
+// 					result[len-1][j+1] = result[len-2][j] + result[len-2][j+1];
+// 				}
+// 			}
+// 		}
+// 		return result;
+// 	}
+// }
+
+// int main() {
+// 	int numRows = 5;
+// 	vector<vector<int> > result = generate(numRows);
+// 	printVec(result);
+// 	return 0;
+// }
+
+//Pascal's Triangle II
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// void printVec(vector<int>& nums) {
+// 	int size = nums.size();
+// 	if(size <= 0)
+// 		cout<<"empty vector";
+// 	else {
+// 		for(int i = 0; i < size; i++) {
+// 			cout<<nums[i]<<" ";
+// 		}
+// 	}
+// 	cout<<endl;
+// }
+
+// vector<int> getRow(int rowIndex) {
+// 	if(rowIndex <= 1)
+// 		return vector<int>(rowIndex+1, 1);
+// 	vector<int> result(rowIndex+1, 1);
+// 	for(int i = 0; i < ) {
+// 		//
+// 	}
+// 	return result;
+// }
+
+// int main() {
+// 	int numRows = 5;
+// 	vector<vector<int> > result = generate(numRows);
+// 	printVec(result);
+// 	return 0;
+// }
+
+//Triangle
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
-struct TreeNode {
-	int val;
-	TreeNode* left;
-	TreeNode* right;
-	TreeNode(int x) : val(x), left(NULL), right{NULL} {}
-};
-
-TreeNode* build(vector<int>& preorder, int pl, int pr, vector<int>& inorder, int il, ir) {
-	if(pl > pr || il > ir)
-		return NULL;
-	TreeNode* root = new TreeNode(preorder[pl]);
-	int index = 0;
-	for(int i = il; i <= ir; i++)
-		if(inorder[i] == preorder[pl])
-			index = i;
-	root->left = build(preorder, pl+1, pl+index-il, inorder, il, index-1);
-	root->right = build(preorder, pr-ir+index+1, pr, inorder, index+1, ir);
-	return root;
+void printVec(vector<vector<int> >& nums) {
+	if(nums.size() <= 0)
+		cout<<"empty vector";
+	else {
+		for(int i = 0; i < nums.size(); i++) {
+			if(nums[i].size() <= 0)
+				cout<<"empty"<<endl;
+			else {
+				for(int j = 0; j < nums[i].size(); j++)
+					cout<<nums[i][j]<<" ";
+				cout<<endl;
+			}
+		}
+	}
 }
 
-TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-	return build(preorder, 0, preorder.siz()-1, inorder, 0, inorder.size()-1);
+int minimumTotal(vector<vector<int> >& triangle) {
+	if(triangle.size() <= 0)
+		return 0;
 }
 
 int main() {
-	//
+	int numRows = 5;
+	vector<vector<int> > result = generate(numRows);
+	printVec(result);
 	return 0;
 }
-
-
