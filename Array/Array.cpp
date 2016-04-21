@@ -2709,35 +2709,173 @@
 // }
 
 //Triangle
-#include <iostream>
-#include <vector>
+// #include <iostream>
+// #include <vector>
 
-using namespace std;
+// using namespace std;
 
-void printVec(vector<vector<int> >& nums) {
-	if(nums.size() <= 0)
-		cout<<"empty vector";
-	else {
-		for(int i = 0; i < nums.size(); i++) {
-			if(nums[i].size() <= 0)
-				cout<<"empty"<<endl;
-			else {
-				for(int j = 0; j < nums[i].size(); j++)
-					cout<<nums[i][j]<<" ";
-				cout<<endl;
-			}
-		}
-	}
-}
+// int minimumTotal(vector<vector<int> >& triangle) {
+// 	if(triangle.size() <= 0)
+// 		return 0;
+// 	int n = triangle.size();
+// 	vector<int> tmp(n, 0);
+// 	for(int i = 0; i < triangle[n-1].size(); i++)
+// 		tmp[i] = triangle[n-1][i];
+// 	for(int i = n-2; i >= 0; i--) {
+// 		for(int j = 0; j < triangle[i].size(); j++) {
+// 			tmp[j] = min(tmp[j], tmp[j+1]) + triangle[i][j];
+// 		}
+// 	}
+// 	return tmp[0];
 
-int minimumTotal(vector<vector<int> >& triangle) {
-	if(triangle.size() <= 0)
-		return 0;
-}
+// }
 
-int main() {
-	int numRows = 5;
-	vector<vector<int> > result = generate(numRows);
-	printVec(result);
-	return 0;
-}
+// int main() {
+	
+// 	vector<vector<int> > triangle;
+// 	vector<int> tmp1;
+// 	tmp1.push_back(2);
+
+// 	vector<int> tmp2;
+// 	tmp2.push_back(3);
+// 	tmp2.push_back(4);
+
+
+// 	vector<int> tmp3;
+// 	tmp3.push_back(5);
+// 	tmp3.push_back(6);
+// 	tmp3.push_back(7);
+
+// 	vector<int> tmp4;
+// 	tmp4.push_back(4);
+// 	tmp4.push_back(1);
+// 	tmp4.push_back(8);
+// 	tmp4.push_back(3);
+
+// 	triangle.push_back(tmp1);
+// 	triangle.push_back(tmp2);
+// 	// triangle.push_back(tmp3);
+// 	// triangle.push_back(tmp4);
+
+// 	int result = minimumTotal(triangle);
+// 	cout<<result<<endl;
+// 	return 0;
+// }
+
+//Best Time to Buy and Sell Stock
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// int maxProfit(vector<int>& prices) {
+// 	int len = prices.size();
+// 	if(len <= 1)
+// 		return 0;
+// 	int result = 0;
+// 	int localMin = INT_MAX;
+// 	for(int i = 0; i < len; i++) {
+// 		result = max(result, prices[i]-localMin);
+// 		localMin = min(localMin, prices[i]);
+// 	}
+// 	return result;
+// }
+
+// int main() {
+// 	vector<int> prices;
+// 	prices.push_back(1);
+// 	prices.push_back(2);
+// 	prices.push_back(3);
+// 	prices.push_back(4);
+// 	prices.push_back(5);
+// 	int result = maxProfit(prices);
+// 	cout<<result<<endl;
+// 	return 0;
+// }
+
+//Best Time to Buy and Sell Stock II
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// //这道题目是采用贪心的算法，即保证每天都有买入卖出操作，但是为啥这么做可以，我还没有想太清楚
+// int maxProfit(vector<int>& prices) {
+// 	int len = prices.size();
+// 	if(len <= 1)
+// 		return 0;
+// 	int result = 0;
+// 	for(int i = 0; i < len-1; i++) {
+// 		if(prices[i] < prices[i+1])
+// 			result += (prices[i+1] - prices[i]);
+// 	}
+// 	return result;
+// }
+
+// int main() {
+// 	vector<int> prices;
+// 	prices.push_back(1);
+// 	prices.push_back(2);
+// 	prices.push_back(3);
+// 	prices.push_back(4);
+// 	prices.push_back(5);
+// 	int result = maxProfit(prices);
+// 	cout<<result<<endl;
+// 	return 0;
+// }
+
+//Best Time to Buy and Sell Stock III
+// #include <iostream>
+// #include <vector>
+
+// using namespace std;
+
+// //用f(i)表示从0到i的最大利润，用g(i)表示从n-1到i的最大利润，则最后的最大利润是f(i)+g(i)的最大值
+// //上面的思路只是最基本的思路，不过这道题目还可以再优化，只需要O(n)的额外空间就可以了
+// int maxProfit(vector<int>& prices) {
+// 	int len = prices.size();
+// 	if(len <= 1)
+// 		return 0;
+// 	vector<int> f(len, 0);
+// 	vector<int> g(len, 0);
+// 	int result = 0;
+// 	int localMin = prices[0];
+// 	for(int i = 0; i < len; i++) {
+// 		f[i] = max(result, prices[i]-localMin);
+// 		localMin = min(localMin, prices[i]);
+// 		result = max(result, f[i]);
+// 	}
+// 	result = 0;
+// 	int localMax = prices[len-1];
+// 	for(int j = len-1; j >= 0; j--) {
+// 		g[j] = max(result, localMax-prices[j]);
+// 		localMax = max(localMax, prices[j]);
+// 		result = max(result, g[j]);
+// 	}
+// 	result = 0;
+// 	for(int i = 0; i < len; i++) {
+// 		result = max(result, f[i]+g[i]);
+// 	}
+// 	return result;
+// }
+
+// int main() {
+// 	vector<int> prices;
+// 	prices.push_back(2);
+// 	prices.push_back(1);
+// 	prices.push_back(2);
+// 	prices.push_back(0);
+// 	prices.push_back(1);
+// 	int result = maxProfit(prices);
+// 	cout<<result<<endl;
+// 	return 0;
+// }
+
+
+
+
+
+
+
+
+
