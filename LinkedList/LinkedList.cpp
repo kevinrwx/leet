@@ -1,7 +1,7 @@
 
-//Linked list
+// Linked list
 
-//Add two numbers
+// Add two numbers
 // #include <iostream>
 
 // using namespace std;
@@ -72,7 +72,7 @@
 // 	return 0;
 // }
 
-//Remove Nth Node From End of List
+// Remove Nth Node From End of List
 // #include <iostream>
 
 // using namespace std;
@@ -128,7 +128,7 @@
 // 	return 0;
 // }
 
-//Merge Two Sorted Lists
+// Merge Two Sorted Lists
 // #include <iostream>
 
 // using namespace std;
@@ -192,7 +192,7 @@
 // 	return 0;
 // }
 
-//Merge k Sorted Lists
+// Merge k Sorted Lists
 // #include <iostream>
 // #include <vector>
 
@@ -313,7 +313,7 @@
 // 	return 0;
 // }
 
-//Swap Nodes in Pairs
+// Swap Nodes in Pairs
 // #include <iostream>
 
 // using namespace std;
@@ -363,7 +363,7 @@
 // }
 
 
-//Reverse Nodes in k-Group
+// Reverse Nodes in k-Group
 // #include <iostream>
 
 // using namespace std;
@@ -464,7 +464,7 @@
 // 	return 0;
 // }
 
-//Rotate List
+// Rotate List
 // #include <iostream>
 
 // using namespace std;
@@ -529,7 +529,7 @@
 // 	return 0;
 // }
 
-//Remove Duplicates from Sorted List II
+// Remove Duplicates from Sorted List II
 // #include <iostream>
 
 // using namespace std;
@@ -585,7 +585,7 @@
 // 	return 0;
 // }
 
-//Remove Duplicates from Sorted List
+// Remove Duplicates from Sorted List
 // #include <iostream>
 
 // using namespace std;
@@ -634,7 +634,7 @@
 // 	return 0;
 // }
 
-//Partition List
+// Partition List
 // #include <iostream>
 
 // using namespace std;
@@ -693,7 +693,7 @@
 // 	return 0;
 // }
 
-//Reverse Linked List II
+// Reverse Linked List II
 // #include <iostream>
 
 // using namespace std;
@@ -755,7 +755,7 @@
 // 	return 0;
 // }
 
-//Convert Sorted List to Binary Search Tree
+// Convert Sorted List to Binary Search Tree
 // #include <iostream>
 
 // using namespace std;
@@ -852,7 +852,7 @@
 // 	return 0;
 // }
 
-//copy list with random pointer
+// copy list with random pointer
 // #include <iostream>
 // #include <map>
 
@@ -900,7 +900,7 @@
 // }
 
 
-//Linked List Cycle
+// Linked List Cycle
 // #include <iostream>
 
 // using namespace std;
@@ -953,7 +953,7 @@
 // }
 
 
-//Linked List Cycle II
+// Linked List Cycle II
 // #include <iostream>
 
 // using namespace std;
@@ -1047,7 +1047,7 @@
 // 	return 0;
 // }
 
-//Reorder List
+// Reorder List
 // #include <iostream>
 
 // using namespace std;
@@ -1132,7 +1132,7 @@
 // }
 
 
-//Insertion Sort List
+// Insertion Sort List
 // #include <iostream>
 
 // using namespace std;
@@ -1196,7 +1196,7 @@
 // }
 
 
-//Sort List
+// Sort List
 // #include <iostream>
 
 // using namespace std;
@@ -1280,7 +1280,7 @@
 // 	return 0;
 // }
 
-//Intersection of Two Linked Lists
+// Intersection of Two Linked Lists
 // #include <iostream>
 
 // using namespace std;
@@ -1343,7 +1343,7 @@
 // 	return 0;
 // }
 
-//Remove Linked List Elements
+// Remove Linked List Elements
 // #include <iostream>
 
 // using namespace std;
@@ -1392,7 +1392,7 @@
 // 	return 0;
 // }
 
-//Reverse Linked List
+// Reverse Linked List
 // #include <iostream>
 
 // using namespace std;
@@ -1451,7 +1451,7 @@
 // 	return 0;
 // }
 
-//Palindrome Linked List
+// Palindrome Linked List
 // #include <iostream>
 
 // using namespace std;
@@ -1527,7 +1527,7 @@
 // }
 
 
-//Delete Node in a Linked List
+// Delete Node in a Linked List
 // #include <iostream>
 
 // using namespace std;
@@ -1568,7 +1568,7 @@
 // 	return 0;
 // }
 
-//Odd Even Linked List
+// Odd Even Linked List
 // #include <iostream>
 
 // using namespace std;

@@ -1,5 +1,5 @@
 
-//Two Sum
+// Two Sum
 // #include <iostream>
 // #include <vector>
 // #include <map>
@@ -52,7 +52,7 @@
 // 	return 0;
 // }
 
-//Median of Two Sorted Arrays
+// Median of Two Sorted Arrays
 // #include <iostream>
 // #include <vector>
 // #include <map>
@@ -152,7 +152,7 @@
 // }
 
 
-//Container With Most Water
+// Container With Most Water
 // #include <iostream>
 // #include <vector>
 
@@ -204,7 +204,7 @@
 // }
 
 
-//3Sum
+// 3Sum
 // #include <iostream>
 // #include <vector>
 
@@ -273,7 +273,7 @@
 // 				tmp.push_back(nums[i]);
 // 				tmp.push_back(nums[j]);
 // 				tmp.push_back(nums[k]);
-// 				result.push_back(tmp);;
+// 				result.push_back(tmp);
 // 				j++;
 // 				k--;
 // 				while(j < k && nums[j] == nums[j-1])
@@ -306,7 +306,7 @@
 // 	return 0;
 // }
 
-//3Sum Closest
+// 3Sum Closest
 // #include <iostream>
 // #include <vector>
 // #include <cmath>
@@ -358,7 +358,7 @@
 // }
 
 
-//4Sum
+// 4Sum
 // #include <iostream>
 // #include <vector>
 
@@ -406,7 +406,7 @@
 // 	return 0;
 // }
 
-//Remove Duplicates from Sorted Array
+// Remove Duplicates from Sorted Array
 // #include <iostream>
 // #include <vector>
 
@@ -452,7 +452,7 @@
 // 	return 0;
 // }
 
-//Remove Element
+// Remove Element
 // #include <iostream>
 // #include <vector>
 
@@ -500,7 +500,7 @@
 // 	return 0;
 // }
 
-//Next Permutation
+// Next Permutation
 // #include <iostream>
 // #include <vector>
 
@@ -566,7 +566,7 @@
 // 	return 0;
 // }
 
-//Search in Rotated Sorted Array
+// Search in Rotated Sorted Array
 // #include <iostream>
 // #include <vector>
 
@@ -626,7 +626,7 @@
 // }
 
 
-//Search for a Range
+// Search for a Range
 // #include <iostream>
 // #include <vector>
 
@@ -705,7 +705,7 @@
 // }
 
 
-//Search Insert Position
+// Search Insert Position
 // #include <iostream>
 // #include <vector>
 
@@ -817,7 +817,7 @@
 // }
 
 
-//Combination Sum II
+// Combination Sum II
 // #include <iostream>
 // #include <vector>
 // #include <set>
@@ -883,7 +883,7 @@
 // 	return 0;
 // }
 
-//First Missing Positive
+// First Missing Positive
 // #include <iostream>
 // #include <vector>
 
@@ -940,7 +940,7 @@
 // }
 
 
-//Trapping Rain Water
+// Trapping Rain Water
 // #include <iostream>
 // #include <vector>
 
@@ -1009,7 +1009,7 @@
 // 	return 0;
 // }
 
-//Jump Game II
+// Jump Game II
 // #include <iostream>
 // #include <vector>
 
@@ -1074,7 +1074,7 @@
 // }
 
 
-//Rotate Image
+// Rotate Image
 // #include <iostream>
 // #include <vector>
 
@@ -1136,7 +1136,7 @@
 // 	return 0;
 // }
 
-//Maximum Subarray
+// Maximum Subarray
 // #include <iostream>
 // #include <vector>
 // #include <limits.h>
@@ -1192,7 +1192,7 @@
 
 
 
-//Spiral Matrix
+// Spiral Matrix
 // #include <iostream>
 // #include <vector>
 
@@ -1276,7 +1276,7 @@
 // }
 
 
-//Jump Game
+// Jump Game
 // #include <iostream>
 // #include <vector>
 
@@ -1386,7 +1386,7 @@
 // 	return 0;
 // }
 
-//Insert Interval
+// Insert Interval
 // #include <iostream>
 // #include <vector>
 // #include <algorithm>
@@ -1438,7 +1438,7 @@
 // }
 
 
-//Spiral Matrix II
+// Spiral Matrix II
 // #include <iostream>
 // #include <vector>
 
@@ -1476,7 +1476,7 @@
 // }
 
 
-//Unique Paths
+// Unique Paths
 // #include <iostream>
 // #include <vector>
 
@@ -1514,7 +1514,7 @@
 // 	return 0;
 // }
 
-//Unique Paths II
+// Unique Paths II
 // #include <iostream>
 // #include <vector>
 
@@ -1583,7 +1583,7 @@
 // 	return 0;
 // }
 
-//Minimum Path Sum
+// Minimum Path Sum
 // #include <iostream>
 // #include <vector>
 
@@ -1647,7 +1647,7 @@
 // 	return 0;
 // }
 
-//Plus One
+// Plus One
 // #include <iostream>
 // #include <vector>
 // #include <algorithm>
@@ -1713,7 +1713,7 @@
 // }
 
 
-//Set Matrix Zeroes
+// Set Matrix Zeroes
 // #include <iostream>
 // #include <vector>
 // #include <algorithm>
@@ -1827,7 +1827,7 @@
 // 	return 0;
 // }
 
-//Search a 2D Matrix
+// Search a 2D Matrix
 // #include <iostream>
 // #include <vector>
 
@@ -1900,7 +1900,7 @@
 // }
 
 
-//Sort Colors
+// Sort Colors
 // #include <iostream>
 // #include <vector>
 
@@ -1952,7 +1952,7 @@
 // 	return 0;
 // }
 
-//Subsets
+// Subsets
 // #include <iostream>
 // #include <vector>
 
@@ -2009,7 +2009,7 @@
 // 	return result;
 // }
 
-//第二种方法，算是回溯法公式的变形吧，比第一种思路要简单一些，这种思路可以很好的处理含有重复元素的子集问题
+// 第二种方法，算是回溯法公式的变形吧，比第一种思路要简单一些，这种思路可以很好的处理含有重复元素的子集问题
 // void backtrack(vector<vector<int> >& result, vector<int>& nums, vector<int>& tmp, int k) {
 // 	if(k == nums.size()) {
 // 		return ;
@@ -2232,7 +2232,7 @@
 // }
 
 
-//Largest Rectangle in Histogram
+// Largest Rectangle in Histogram
 // #include <iostream>
 // #include <vector>
 // #include <stack>
@@ -2273,7 +2273,7 @@
 // 	return 0;
 // }
 
-//Maximal Rectangle
+// Maximal Rectangle
 // #include <iostream>
 // #include <vector>
 // #include <stack>
@@ -2353,7 +2353,7 @@
 // 	return 0;
 // }
 
-//Merge Sorted Array
+// Merge Sorted Array
 // #include <iostream>
 // #include <vector>
 
@@ -2434,7 +2434,7 @@
 // 	return 0;
 // }
 
-//Subsets II
+// Subsets II
 // #include <iostream>
 // #include <vector>
 
@@ -2498,7 +2498,7 @@
 // }
 
 
-//Construct Binary Tree from Preorder and Inorder Traversal
+// Construct Binary Tree from Preorder and Inorder Traversal
 // #include <iostream>
 // #include <vector>
 
@@ -2561,7 +2561,7 @@
 // }
 
 
-//Construct Binary Tree from Inorder and Postorder Traversal
+// Construct Binary Tree from Inorder and Postorder Traversal
 // #include <iostream>
 // #include <vector>
 
@@ -2623,7 +2623,7 @@
 // 	return 0;
 // }
 
-//Pascal's Triangle
+// Pascal's Triangle
 // #include <iostream>
 // #include <vector>
 
@@ -2673,7 +2673,7 @@
 // 	return 0;
 // }
 
-//Pascal's Triangle II
+// Pascal's Triangle II
 // #include <iostream>
 // #include <vector>
 
@@ -2708,7 +2708,7 @@
 // 	return 0;
 // }
 
-//Triangle
+// Triangle
 // #include <iostream>
 // #include <vector>
 
@@ -2762,7 +2762,7 @@
 // 	return 0;
 // }
 
-//Best Time to Buy and Sell Stock
+// Best Time to Buy and Sell Stock
 // #include <iostream>
 // #include <vector>
 
@@ -2793,7 +2793,7 @@
 // 	return 0;
 // }
 
-//Best Time to Buy and Sell Stock II
+// Best Time to Buy and Sell Stock II
 // #include <iostream>
 // #include <vector>
 
@@ -2824,7 +2824,7 @@
 // 	return 0;
 // }
 
-//Best Time to Buy and Sell Stock III
+// Best Time to Buy and Sell Stock III
 // #include <iostream>
 // #include <vector>
 
